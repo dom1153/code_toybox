@@ -1,2 +1,3 @@
-# code_toybox
+# My code sandbox
+
 General playground for learning programming
