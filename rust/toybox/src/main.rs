@@ -1,5 +1,6 @@
 mod impatient;
 fn main() {
-    println!("Hello, world!");
+    println!("At main.rs");
+
     impatient::print();
 }
