@@ -43,6 +43,8 @@
           xorg.libXi.dev
           glfw
           mesa
+
+          raylib
         ];
         ### https://discourse.nixos.org/t/problems-building-raylib-rs/45142
         LD_LIBRARY_PATH = with pkgs;
@@ -52,6 +54,15 @@
             xorg.libXinerama
             xorg.libXcursor
             xorg.libXi
+
+            xorg.libX11.dev
+            xorg.libXrandr
+            xorg.libXinerama
+            xorg.libXcursor
+            xorg.xinput
+            xorg.libXi.dev
+            glfw
+            mesa
           ];
         LIBCLANG_PATH = "${pkgs.llvmPackages_11.libclang.lib}/lib";
       };
