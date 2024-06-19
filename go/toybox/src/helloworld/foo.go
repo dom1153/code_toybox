@@ -33,6 +33,35 @@ func sum3(n1 string, n2 string) (int, string, string) {
 	return result, n1, n2
 }
 
+type triangle struct {
+	size int
+}
+
+// VVV replace struct with say string, and you can overload it?!
+type square struct {
+	size int
+}
+
+// embedding, note quite inheritance
+type cTriangle struct {
+	triangle
+	color string
+}
+
+type combo struct {
+	triangle
+	square
+}
+
+// VVV these are private functions, but public/private rules only apply to other modules
+// VVV pass by value, just like methods, use pointers if you want a destructive method
+func (t triangle) perimeter() int {
+	return t.size * 3
+}
+func (c square) perimeter() int {
+	return c.size * 4
+}
+
 // c style pointers exists, for pass by reference...
 
 func main() {
@@ -54,7 +83,7 @@ func main() {
 	// arg1, _ := strconv.Atoi(os.Args[1])
 	// fmt.Println("input: ", arg1)
 	// fmt.Println("input: ", os.Args[1])
-	fmt.Println("input len: ", len(os.Args))
+	fmt.Println("len(os.Args", len(os.Args))
 
 	fmt.Println("sum1", sum1("1", "2"))
 	fmt.Println("sum2", sum2("3", "4"))
@@ -64,9 +93,24 @@ func main() {
 
 	// ### hint: nvim needs to be in the same context, then lsp will work
 	total := calculator.Sum(3, 5)
-	fmt.Println(total, calculator.Version)
+	fmt.Println("calculator.Sum()", total, calculator.Version)
 
-	fmt.Println(quote.Hello())
-	fmt.Println(quote.Glass())
-	fmt.Println(quote.Go())
+	fmt.Println("quote.Hello()", quote.Hello())
+	fmt.Println("quote.Glass()", quote.Glass())
+	fmt.Println("quote.Go()", quote.Go())
+
+	t := triangle{3}
+	s := square{3}
+	fmt.Println("Perimeter (triangle):", t.perimeter())
+	fmt.Println("Perimeter (square):", s.perimeter())
+
+	foo := string("hello")
+	fmt.Println("foo (string)", foo)
+
+	ct := cTriangle{triangle{3}, "blue"}
+	fmt.Println("cTriangle size:", ct.size)
+	fmt.Println("cTriangle color:", ct.color)
+
+	come := combo{triangle{3}, square{4}}
+	fmt.Println("combo size (triangle):", come.triangle.size)
 }
