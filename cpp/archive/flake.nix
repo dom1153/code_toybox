@@ -1,4 +1,5 @@
 {
+  ### this doesn't work, but nix-shell does. not sure why
   description = "Example C++ development environment for Zero to Nix";
 
   # Flake inputs

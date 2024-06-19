@@ -2,6 +2,7 @@
 
 ### ./sshG.sh foo-server
 ### https://www.youtube.com/watch?v=xCX14u9XzE8
+### technically untested ;)
 
 ### reads existing ssh config for a server, generate a key, upload it to the server
 

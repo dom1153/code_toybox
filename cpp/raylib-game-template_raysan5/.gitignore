@@ -69,3 +69,14 @@ compile_commands.json
 # Android
 *apk*
 android.*
+
+### if you're dumb like me and use hack cmake . -> make instead of using the correct build instructions
+CMakeCache.txt
+CMakeFiles/
+CPackConfig.cmake
+CPackSourceConfig.cmake
+Makefile
+_deps/
+cmake_install.cmake
+compile_commands.json
+raylib-game-template/
