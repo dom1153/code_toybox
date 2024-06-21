@@ -1,0 +1,10 @@
+# Git Ignore Rules for raytracing.github.io
+
+build/
+/*.ppm
+
+/v3/*.ppm
+
+.cache/
+
+image.ppm
