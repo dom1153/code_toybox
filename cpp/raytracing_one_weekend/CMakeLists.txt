@@ -25,10 +25,6 @@ endif()
 
 # Source
 
-# set ( EXTERNAL
-#   src/external/stb_image.h
-# )
-
 set ( SOURCE_ONE_WEEKEND
   src/main.cc
 )
@@ -63,4 +59,5 @@ elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 # Executables
-add_executable(One      ${EXTERNAL} ${SOURCE_ONE_WEEKEND})
+add_executable(One      ${SOURCE_ONE_WEEKEND})
+add_executable(rgy_ppm      src/archive/single_rgy.cc)
