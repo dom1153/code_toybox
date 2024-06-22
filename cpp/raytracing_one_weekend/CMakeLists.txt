@@ -61,3 +61,5 @@ endif()
 # Executables
 add_executable(One      ${SOURCE_ONE_WEEKEND})
 add_executable(rgy_ppm      src/archive/single_rgy.cc)
+add_executable(rgy_ppm_2      src/archive/single_rgy_class.cc)
+add_executable(simple_camera      src/archive/simple_camera.cc)
