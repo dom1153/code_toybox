@@ -68,6 +68,7 @@ int main() {
     // std::clog << "\rDone (" << j << ")                      \n";
     std::clog << "\rDone (" << j << ")                      ";
   }
+  std::clog << std::endl;
 }
 
 color ray_color(const ray &r) {

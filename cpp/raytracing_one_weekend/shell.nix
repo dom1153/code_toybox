@@ -8,5 +8,9 @@ pkgs.mkShell {
     xorg.libXinerama
     xorg.libXcursor
     xorg.libXi
+
+    ### util
+    coreutils ### standardize ls (e.g. macos)
+    file ### get file types
   ];
 }

@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-double hit_sphere(const point3 &center, double radius, const ray &r);
+bool hit_sphere(const point3 &center, double radius, const ray &r);
 color ray_color(const ray &r);
 color lerp(const color &start, const color &end, const double value);
 
@@ -67,8 +67,7 @@ int main() {
 
     // \r let us overrwrite previous line? or something...
     // std::clog << "\rDone (" << j << ")                      \n";
-    std::clog << "\rDone (" << j << "/" << (image_height - 1) << ")"
-              << "                             ";
+    std::clog << "\rDone (" << j << ")                      ";
   }
   std::clog << std::endl;
 }
@@ -80,7 +79,7 @@ const color BLACK = color(0, 0, 0);
 const color WHITE = color(1, 1, 1);
 const color BLUE_SKY = color(0.5, 0.7, 1.0);
 
-double hit_sphere(const point3 &center, double radius, const ray &r) {
+bool hit_sphere(const point3 &center, double radius, const ray &r) {
   // math
   vec3 oc = center - r.origin();
   // quadratic formula ax^2 + bx + c
@@ -88,20 +87,12 @@ double hit_sphere(const point3 &center, double radius, const ray &r) {
   auto b = -2.0 * dot(r.direction(), oc);     // -2d  (C - Q)
   auto c = dot(oc, oc) - radius * radius;     // (C - Q)  (C - Q) - r^2
   auto discriminant = b * b - 4 * a * c;      // t (# of ray hits)
-
-  if (discriminant < 0) {
-    // calcs allow for negative ('behind' the camera); don't draw
-    return -1.0;
-  } else {
-    return (-b - sqrt(discriminant)) / (2.0 * a);
-  }
+  return (discriminant >= 0);                 // expected to be 0, 1, or 2
 }
 
 color ray_color(const ray &r) {
-  auto t = hit_sphere(point3(0, 0, -1), 0.5, r);
-  if (t > 0.0) {
-    vec3 N = unit_vector(r.at(t) - vec3(0, 0, -1)); // sphere normal
-    return 0.5 * color(N.x() + 1, N.y() + 1, N.z() + 1);
+  if (hit_sphere(point3(0, 0, -1), 0.5, r)) {
+    return RED;
   }
 
   // return color(0, 0, 0); // stub for now
