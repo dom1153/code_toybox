@@ -17,7 +17,7 @@ if [[ $status -eq 0 ]]; then
 		Darwin*)
 			open ./build/image.ppm
 			;;
-		Linux-*)
+		Linux*)
 			feh ./build/image.ppm
 			;;
 		*) ;;
