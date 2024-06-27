@@ -24,7 +24,7 @@ pub fn print() {
     }
 
     // let (l, r) = slice.split_at(middle);
-    if true {
+    if !true {
         let x = vec![1, 2, 3, 4, 5, 6, 7, 8]
             .iter() // why do we iter and not call map on this directly? (guess that's how we do it here)
             .map(|x| x + 3)
@@ -154,5 +154,14 @@ pub fn print() {
         println!("(..=20).contains(&20): {}", (..=20).contains(&20));
         // only 3, 4, 5
         println!("(3..6).contains(&4): {}", (3..6).contains(&4));
+    }
+
+    if true {
+        let my_string = "hello";
+        match my_string {
+            "hello" => println!("Hello, world!"),
+            "goodbye" => println!("Goodbye, world!"),
+            _ => println!("Neither hello nor goodbye!"),
+        }
     }
 }
