@@ -1,0 +1,18 @@
+Windows flow: (w64devkit)
+
+    1. Install raylib library (itch io works)
+
+    2. Run premake-mingw.bat (w64devkit version)
+
+    3. run w64devkit from installed c:\raylib folder
+
+    4. call make
+
+Mac flow: (noted in main readme)
+
+Run:
+    ./premake5.osx gmake2
+    
+    make
+
+    ./bin/Debug/game-premake
