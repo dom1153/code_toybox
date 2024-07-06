@@ -10,9 +10,18 @@ Windows flow: (w64devkit)
 
 Mac flow: (noted in main readme)
 
+    1. ./premake5.osx gmake2
+
+    2. make
+
 Run:
     ./premake5.osx gmake2
-    
+
     make
 
     ./bin/Debug/game-premake
+
+NixOS:
+    nix develop
+
+    see ./all.sh
