@@ -1,0 +1,4 @@
+Generated with astro tooling
+
+Added tailwindcss and shadcn manually.
+
