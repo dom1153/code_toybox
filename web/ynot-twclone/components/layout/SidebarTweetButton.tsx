@@ -2,9 +2,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { FaFeather } from "react-icons/fa";
 
-type Props = {};
-
-const SidebarTweetButton = (props: Props) => {
+const SidebarTweetButton = () => {
 	const router = useRouter();
 
 	return (
