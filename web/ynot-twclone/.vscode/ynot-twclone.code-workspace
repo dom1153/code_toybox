@@ -1,0 +1,46 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../components"
+		}
+		{
+			"path": "../pages"
+		},
+		{
+			"path": "../styles"
+		}
+		// {
+		// 	"path": "../scripts"
+		// },
+	],
+	"settings": {
+		"files.exclude": {
+			"../**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/CVS": true,
+			"**/.DS_Store": true,
+			"**/Thumbs.db": true,
+			// mine
+			"**/.devcontainer": false,
+			"**/.vscode": false,
+			"**/.direnv": true,
+			"**/.next": true,
+			"**/node_modules": true,
+			".envrc": true,
+			".gitignore": true,
+			"flake.nix": true,
+			"flake.lock": true,
+			"package-lock.json": true,
+			// local workspace
+			"pages/": true,
+			"styles/": true,
+			"components/": true,
+			"scripts/": false
+		},
+		"editor.defaultFormatter": "biomejs.biome"
+	}
+}
