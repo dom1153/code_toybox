@@ -18,10 +18,11 @@ const Button: React.FC<ButtonProps> = ({
 	outline,
 }) => {
 	return (
-		<button
-			disabled={disabled}
-			onClick={onClick}
-			className={`
+		<>
+			<button
+				disabled={disabled}
+				onClick={onClick}
+				className={`
             disabled:opacity-70
             disabled:cursor-not-allowed
             rounded-full
@@ -35,14 +36,15 @@ const Button: React.FC<ButtonProps> = ({
             ${secondary ? "border-black" : "border-sky-500"}
             ${large ? "text-xl" : "text-md"}
             ${large ? "px-5" : "px-4"}
-            ${large ? "px-3" : "py-2"}
+            ${large ? "py-3" : "py-2"}
             ${outline ? "bg-transparent" : ""}
             ${outline ? "border-white" : ""}
             ${outline ? "text-white" : ""}
     `}
-		>
-			{label}
-		</button>
+			>
+				{label}
+			</button>
+		</>
 	);
 };
 
