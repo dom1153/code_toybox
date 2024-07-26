@@ -4,10 +4,10 @@
 			"path": ".."
 		},
 		{
-			"path": "../components"
+			"path": "../app"
 		},
 		{
-			"path": "../app"
+			"path": "../components"
 		},
 		{
 			"path": "../styles"
