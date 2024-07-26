@@ -1,0 +1,46 @@
+    ARG-06762-MN-Little Canada
+
+        Restaurant #06762
+          2300 Rice St
+    Little Canada, MN 55113
+      Phone (651) 765-0506
+
+2/28/2024               3:52:51 PM
+Order Id: AAAERL4AAEAF
+- - Eat In
+Employee: Dave
+Total Items: 2
+
+---------------------------------
+
+
+---------------------------------
+
+  1 CPN - Free BNC Classic
+    1 BnC Classic
+  1 Ckn Nuggets 4-HH        $1.49
+    ADD Broncoberry Dip     $0.00
+
+Sub Total                   $1.49
+
+SALES TAX                   $0.12
+
+Order Total                 $1.61
+
+MasterCard                  $1.61
+AUTHORIZED AMOUNT           $1.61
+  Card#: **********3275
+  Authorization: 78159P
+
+AID: A0000000000041010
+
+      --> Order Closed <--
+
+   How'd we do? Scan the QR code
+  or visit www.arbys.com/feedback
+      survey and let us know.
+
+           <QR CODE>
+
+qrencode -t ASCIIi 'https://youwannacastaspell.com/'
+https://superuser.com/questions/1420001/is-it-possible-to-create-a-qr-code-using-text
