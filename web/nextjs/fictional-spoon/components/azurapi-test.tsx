@@ -10,7 +10,7 @@ import { Button } from "./ui/button"
 
 const AzurApiTest = ({}) => {
   const [counter, setCounter] = useState(1)
-  const [textLog, setTextLog] = useState("foobar!\n")
+  const [textLog, setTextLog] = useState("azurapi-test.tsx\n")
 
   const log = (s: string) => {
     setTextLog(textLog.concat(`${s}\n`))
@@ -18,18 +18,17 @@ const AzurApiTest = ({}) => {
 
   const buttonHandler = useCallback(async () => {
     try {
-      // console.log(await myaction())
       await axios
         .post("/api/foo", {})
         .then((res) => {
-          console.log("got result!")
-          console.log(res)
+          // console.log(res)
           const ship: Ship = res.data
+          // console.log(ship)
           log(ship.names.en)
-          console.log("i did it...")
+          console.log("Axios: (success?)")
         })
         .catch((err) => console.log(err))
-      console.log("Button clicked")
+      console.log("buttonHandler: Button clicked")
     } catch (error) {
       console.log(error)
     }
