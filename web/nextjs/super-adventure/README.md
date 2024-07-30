@@ -1,6 +1,6 @@
-# Descripton
+# Description
 
-Toybox for testing random apps and features
+The start of research and development of Azur Lane DB 2
 
 # next-template
 

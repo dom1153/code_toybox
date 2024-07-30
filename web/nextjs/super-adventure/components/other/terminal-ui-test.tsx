@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 import Terminal, { TerminalOutput } from "react-terminal-ui"
 
-import { Button } from "./ui/button"
+import { Button } from "../ui/button"
 
 const TerminalUiTest = () => {
   const [log, setLog] = useState([
