@@ -1,3 +1,4 @@
+import { promises as fs } from "fs"
 import Link from "next/link"
 import { AzurAPI } from "@azurapi/azurapi"
 
@@ -11,7 +12,10 @@ import ScreenRatioTool from "@/components/tools/screen-ratio"
 
 // const client = new AzurAPI();
 
-export default function IndexPage() {
+export default async function IndexPage() {
+  const file = await fs.readFile(process.cwd() + "/app/data.json", "utf8")
+  const data = JSON.parse(file)
+
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
       <div className="flex max-w-[980px] flex-col items-start gap-2">
@@ -26,6 +30,7 @@ export default function IndexPage() {
             <TabsTrigger value="screen-ratio">Screen Ratio</TabsTrigger>
             <TabsTrigger value="terminal-ui">Terminal UI</TabsTrigger>
             <TabsTrigger value="log-view">Log View</TabsTrigger>
+            <TabsTrigger value="fs-test">fs</TabsTrigger>
             {false && <TabsTrigger value="azur-api">Azur API</TabsTrigger>}
           </TabsList>
           <TabsContent value="terminal-ui">
@@ -39,6 +44,12 @@ export default function IndexPage() {
           </TabsContent>
           <TabsContent value="screen-ratio">
             <ScreenRatioTool />
+          </TabsContent>
+          <TabsContent value="fs-test">
+            <div>
+              <h1>{data.title}</h1>
+              <p>{data.content}</p>
+            </div>
           </TabsContent>
         </Tabs>
       </div>
