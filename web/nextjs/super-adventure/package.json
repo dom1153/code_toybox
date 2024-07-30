@@ -17,7 +17,6 @@
     "@azurapi/azurapi": "^1.1.2",
     "@melloware/react-logviewer": "^5.1.1",
     "@radix-ui/react-slot": "^1.0.2",
-    "@radix-ui/react-tooltip": "^1.1.2",
     "axios": "^1.7.2",
     "class-variance-authority": "^0.4.0",
     "clsx": "^1.2.1",
