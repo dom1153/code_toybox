@@ -70,7 +70,7 @@ const ScreenRatioTool: React.FC<ScreenRatioToolProps> = ({}) => {
 
   useEffect(() => {
     doCalcuate()
-  }, [pWidth, pHeight])
+  }, [pWidth, pHeight, errorText])
 
   return (
     <>
@@ -134,9 +134,9 @@ const ScreenRatioTool: React.FC<ScreenRatioToolProps> = ({}) => {
                   Common Sizes
                 </h4>
                 {pixels.map((tag) => (
-                  <>
+                  <div key={`${tag.h}x${tag.w}`}>
                     <Button
-                      key={`${tag.h}x${tag.w}`}
+                      size={"sm"}
                       className="text-sm cursor-pointer"
                       onClick={() => {
                         setPWidth(tag.w)
@@ -146,7 +146,7 @@ const ScreenRatioTool: React.FC<ScreenRatioToolProps> = ({}) => {
                       {tag.w} x {tag.h} {tag.label ? `(${tag?.label})` : ""}
                     </Button>
                     <Separator className="my-2" />
-                  </>
+                  </div>
                 ))}
               </div>
             </ScrollArea>
