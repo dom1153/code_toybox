@@ -3,6 +3,7 @@ import { AzurAPI } from "@azurapi/azurapi"
 
 import { siteConfig } from "@/config/site"
 import { buttonVariants } from "@/components/ui/button"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import AzurApiTest from "@/components/other/azurapi-test"
 import LogViewTest from "@/components/other/logview-test"
 import TerminalUiTest from "@/components/other/terminal-ui-test"
@@ -20,11 +21,28 @@ export default function IndexPage() {
         <p className="max-w-[700px] text-lg text-muted-foreground">
           Just demoing stuff
         </p>
-        {false && <TerminalUiTest />}
-        {false && <LogViewTest />}
-        {false && <AzurApiTest />}
-        {true && <ScreenRatioTool />}
+        <Tabs defaultValue="screen-ratio" className="">
+          <TabsList>
+            <TabsTrigger value="screen-ratio">Screen Ratio</TabsTrigger>
+            <TabsTrigger value="terminal-ui">Terminal UI</TabsTrigger>
+            <TabsTrigger value="log-view">Log View</TabsTrigger>
+            {false && <TabsTrigger value="azur-api">Azur API</TabsTrigger>}
+          </TabsList>
+          <TabsContent value="terminal-ui">
+            <TerminalUiTest />
+          </TabsContent>
+          <TabsContent value="log-view">
+            <LogViewTest />
+          </TabsContent>
+          <TabsContent value="azur-api">
+            <AzurApiTest />
+          </TabsContent>
+          <TabsContent value="screen-ratio">
+            <ScreenRatioTool />
+          </TabsContent>
+        </Tabs>
       </div>
+
       {false && (
         <div className="flex gap-4">
           <Link
