@@ -26,13 +26,29 @@ export function ShoppingListItem({ name, isCompleted }: Props) {
     );
   };
 
+  // null style objects OK (e.g. conditionals)
   return (
-    <View style={styles.itemContainer}>
-      <Text style={styles.itemText}>Coffee</Text>
+    <View
+      style={[
+        styles.itemContainer,
+        isCompleted ? styles.completedContainer : undefined,
+      ]}
+    >
+      <Text
+        style={[
+          styles.itemText,
+          isCompleted ? styles.completedText : undefined,
+        ]}
+      >
+        Coffee
+      </Text>
       <TouchableOpacity
         onPress={handleDelete}
         activeOpacity={0.8}
-        style={styles.button}
+        style={[
+          styles.button,
+          isCompleted ? styles.completedButton : undefined,
+        ]}
       >
         <Text style={styles.buttonText}>{name}</Text>
       </TouchableOpacity>
@@ -46,12 +62,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     justifyContent: "center",
   },
+  completedContainer: {
+    backgroundColor: theme.colorLightGrey,
+    borderBottomColor: theme.colorLightGrey,
+  },
   itemContainer: {
     borderBottomWidth: 1,
     paddingHorizontal: 8,
     paddingVertical: 16,
     flexDirection: "row",
     justifyContent: "space-between",
+    borderColor: theme.colorCerulean,
   },
   itemText: {
     fontSize: 16,
@@ -66,5 +87,10 @@ const styles = StyleSheet.create({
     color: theme.colorWhite,
     fontWeight: "bold",
     textTransform: "uppercase",
+  },
+  completedButton: { backgroundColor: theme.colorGrey },
+  completedText: {
+    textDecorationLine: "line-through",
+    textDecorationColor: theme.colorGrey,
   },
 });
