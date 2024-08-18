@@ -1,10 +1,15 @@
-import { StyleSheet, View } from "react-native";
-import { theme } from "./theme";
-import { ShoppingListItem } from "./components/ShoppingListItem";
+import { StyleSheet, View, Text } from "react-native";
+import { theme } from "../theme";
+import { ShoppingListItem } from "../components/ShoppingListItem";
+import { Link, useRouter } from "expo-router";
 
 export default function App() {
+  const router = useRouter();
   return (
     <View style={styles.container}>
+      <Link href="/counter" style={{ textAlign: "center" }}>
+        <Text>Go to the counter</Text>
+      </Link>
       <ShoppingListItem name="Coffee" />
       <ShoppingListItem name="Tea" />
       <ShoppingListItem name="Sugar" isCompleted />
