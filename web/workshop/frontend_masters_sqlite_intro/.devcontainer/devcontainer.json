@@ -1,0 +1,22 @@
+{
+  "name": "Node.js",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
+  // npm install;
+  "postCreateCommand": "echo alias sqll=\\'sqlite3\\' >> ~/.bash_aliases; direnv allow;",
+  "portsAttributes": {
+    "3000": {
+      "label": "Port Forward for CLI",
+      "onAutoForward": "notify"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["bradlc.vscode-tailwindcss", "esbenp.prettier-vscode"]
+    }
+  },
+  "features": {
+    "ghcr.io/warrenbuckley/codespace-features/sqlite:1": {},
+    "ghcr.io/christophermacgown/devcontainer-features/direnv:1": {},
+    "ghcr.io/devcontainers/features/python:1": {},
+  }
+}

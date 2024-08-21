@@ -1,5 +1,6 @@
 mod guessing_game;
 mod impatient;
+mod rust_by_example;
 
 fn main() {
     println!(">>> At main.rs");
@@ -8,7 +9,11 @@ fn main() {
         impatient::print();
     }
 
-    if true {
+    if false {
         guessing_game::play();
+    }
+
+    if true {
+        rust_by_example::print();
     }
 }
