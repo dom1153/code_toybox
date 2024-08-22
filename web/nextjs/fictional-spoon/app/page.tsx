@@ -1,6 +1,4 @@
 import Link from "next/link"
-import { AzurAPI } from "@azurapi/azurapi"
-import { Toaster } from "react-hot-toast"
 
 import { siteConfig } from "@/config/site"
 import AzurApiIndex from "@/components/ui/azurapi-index"
