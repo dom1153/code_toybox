@@ -10,7 +10,7 @@ export async function GET() {
   let ships: any[] = []
   ships = fooGetAll()
   ships = fooGetSome()
-  ships = fooGetShips()
+  // ships = fooGetShips()
   // ships = fooGetShipByName()
 
   // console.log("foo length:", ships.length)
@@ -31,6 +31,7 @@ function fooGetShipByName() {
 }
 
 function fooGetAll() {
+  console.log(azurapi.ships.raw.length)
   return azurapi.ships.raw
 }
 
