@@ -1,13 +1,16 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import Link from "next/link"
 import { Ship } from "@azurapi/azurapi/build/types/ship"
+import { Label } from "@radix-ui/react-label"
 import axios from "axios"
 import { Ban, RotateCw } from "lucide-react"
 import toast from "react-hot-toast"
+import InfiniteScroll from "react-infinite-scroll-component"
 
 import { isDevEnv } from "@/lib/myutils"
+import { cn } from "@/lib/utils"
 
 import { Button } from "../ui/button"
 import { Card, CardContent } from "../ui/card"
@@ -17,10 +20,49 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip"
+import { Checkbox } from "./checkbox"
+import { Input } from "./input"
+
+interface ItemType {
+  id: string
+  label: string
+  items: ItemTypeType[]
+}
+
+interface ItemTypeType {
+  id: string
+  label: string
+}
+
+let items: ItemType[] = [
+  {
+    id: "hull",
+    label: "Hull",
+    items: [
+      {
+        id: "main",
+        label: "Main",
+      },
+      {
+        id: "vanguard",
+        label: "Vanguard",
+      },
+      {
+        id: "dd",
+        label: "DD",
+      },
+    ],
+  },
+]
+
+let searchDelayTimeout: any = undefined
+const searchDelay = isDevEnv ? 1000 : 100
 
 // @refresh reset
 const AzurApiIndex = ({}) => {
   const [shipList, setShipList] = useState([] as Ship[])
+  const [searchText, setSearchText] = useState("")
+  const [searchWaiting, setSearchWaiting] = useState(false)
 
   useEffect(() => {
     azurApiCall()
@@ -30,7 +72,7 @@ const AzurApiIndex = ({}) => {
     try {
       toast("Refreshing API")
       await axios
-        .get("/api/azur/test", {})
+        .get(`/api/azur/test`, {})
         .then((res) => {
           const ships: Ship[] = res.data.list
           toast(`res size: ${ships.length}`)
@@ -46,6 +88,44 @@ const AzurApiIndex = ({}) => {
       console.log(error)
     } finally {
       // console.info("Callback: success!")
+    }
+  }, [])
+
+  const querySearchText = useCallback(
+    async (txt: any) => {
+      try {
+        await axios
+          .get(`/api/azur/test?searchText=${txt}`, {})
+          .then((res) => {
+            const ships: Ship[] = res.data.list
+            toast(`res size: ${ships.length}`)
+            setShipList(ships)
+          })
+          .catch((err) => {
+            console.log(err)
+            toast("API search: error!")
+          })
+      } catch (error) {
+        console.error("Callback: error!")
+        toast("Callback: error!")
+        console.log(error)
+      }
+    },
+    [searchText]
+  )
+
+  const inputHandler = useCallback((e: any) => {
+    const txt = e.target.value
+
+    setSearchWaiting(true)
+    if (searchDelayTimeout) {
+      clearTimeout(searchDelayTimeout)
+    }
+    searchDelayTimeout = setTimeout(doStuff, searchDelay)
+
+    function doStuff() {
+      setSearchWaiting(false)
+      querySearchText(txt)
     }
   }, [])
 
@@ -123,39 +203,70 @@ const AzurApiIndex = ({}) => {
   }
 
   return (
-    <Card className="flex flex-col gap-5 p-5">
-      {
-        <div className="flex items-center gap-5">
-          <Button onClick={azurApiCall}>
-            <RotateCw className="mr-2 size-4" /> Reload
-          </Button>
-          <Button onClick={resetList}>
-            <Ban className="mr-2 size-4" /> Reset
-          </Button>
+    <>
+      {/* container */}
+      <div className="flex flex-row gap-5">
+        {/* Filter buttons */}
+        <Card className="flex flex-col gap-5 p-5 bg-blue-900 w-[400px]">
+          <div className="flex items-center gap-5">
+            <Button onClick={azurApiCall}>
+              <RotateCw className="mr-2 size-4" /> Reload
+            </Button>
+            <Button onClick={resetList}>
+              <Ban className="mr-2 size-4" /> Reset
+            </Button>
+            <p>Ship Count: {shipList.length}</p>
+          </div>
+          <div className="grid w-full max-w-sm items-center gap-1.5">
+            {/* TODO: use an icon */}
+            <Label htmlFor="Search">Search</Label>
+            <Input
+              type="Search"
+              id="Search"
+              placeholder="Search"
+              onChange={inputHandler}
+            />
+          </div>
+          {items.map((i) => (
+            <div key={i.id}>
+              <h1>{i.label}</h1>
+              <div>
+                {i.items.map((ii) => (
+                  <div key={ii.id} className="flex items-center space-x-2">
+                    <Checkbox key={ii.id} id={ii.id} />
+                    <label>{ii.label}</label>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </Card>
 
-          <p>Ship Count: {shipList.length}</p>
-        </div>
-      }
-
-      {/* this solution works, but does not fill the card size */}
-      {/* based on AL wiki showing ship drops from event... */}
-      {/* TODO: performance issues on thumbnails (50mb) -> webp? */}
-      <div
-        className="grid justify-evenly gap-y-5"
-        style={{
-          gridTemplateColumns: "repeat(auto-fill, 162px)",
-        }}
-      >
-        {shipList.length > 0
-          ? shipList.map((ship: Ship) => {
-              return genShipCard(ship)
-            })
-          : Array.from(Array(10).keys()).map((i) => {
-              if (!isDevEnv) return null
-              return <DummyCard i={i} key={`card-${i}`} />
-            })}
+        {/* Card results */}
+        <Card className="bg-green-900 p-5 flex-grow">
+          {/* this solution works, but does not fill the card size */}
+          {/* based on AL wiki showing ship drops from event... */}
+          {/* TODO: performance issues on thumbnails (50mb) -> webp? */}
+          {true && (
+            <div
+              className="grid justify-evenly gap-y-5"
+              style={{
+                gridTemplateColumns: "repeat(auto-fill, 162px)",
+              }}
+            >
+              {shipList.length > 0
+                ? shipList.map((ship: Ship) => {
+                    return genShipCard(ship)
+                  })
+                : Array.from(Array(10).keys()).map((i) => {
+                    // if (!isDevEnv) return null
+                    return <DummyCard i={i} key={`card-${i}`} />
+                  })}
+            </div>
+          )}
+        </Card>
       </div>
-    </Card>
+    </>
   )
 }
 
