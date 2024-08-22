@@ -10,7 +10,7 @@ export async function GET() {
   let ships: any[] = []
   ships = fooGetAll()
   ships = fooGetSome()
-  // ships = fooGetShips()
+  ships = fooGetShips()
   // ships = fooGetShipByName()
 
   // console.log("foo length:", ships.length)
