@@ -1,42 +1,42 @@
 {
-	"folders": [
-		{
-			"path": ".."
-		},
-		{
-			"path": "../app"
-		},
-		{
-			"path": "../components"
-		},
-		{
-			"path": "../styles"
-		}
-	],
-	"settings": {
-		"files.exclude": {
-			"../**/.git": true,
-			"**/.svn": true,
-			"**/.hg": true,
-			"**/CVS": true,
-			"**/.DS_Store": true,
-			"**/Thumbs.db": true,
-			// mine
-			"**/.devcontainer": false,
-			"**/.vscode": false,
-			"**/.direnv": true,
-			"**/.next": true,
-			"**/node_modules": true,
-			".envrc": true,
-			".gitignore": true,
-			"flake.nix": true,
-			"flake.lock": true,
-			"package-lock.json": true,
-			// local workspace
-			"app/": true,
-			"styles/": true,
-			"components/": true,
-			"scripts/": true
-		},
-	}
+  "folders": [
+    {
+      "path": ".."
+    },
+    {
+      "path": "../app"
+    },
+    {
+      "path": "../components"
+    },
+    {
+      "path": "../styles"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "../**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/Thumbs.db": true,
+      // mine
+      "**/.devcontainer": false,
+      "**/.vscode": false,
+      "**/.direnv": true,
+      "**/.next": true,
+      "**/node_modules": true,
+      ".envrc": true,
+      ".gitignore": true,
+      "flake.nix": true,
+      "flake.lock": true,
+      "package-lock.json": true,
+      // local workspace
+      "app/": true,
+      "styles/": true,
+      "components/": true,
+      "scripts/": false
+    }
+  }
 }

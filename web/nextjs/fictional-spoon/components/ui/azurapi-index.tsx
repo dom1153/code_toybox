@@ -92,6 +92,7 @@ const AzurApiIndex = ({}) => {
                   </div>
                   <CardContent className="relative p-0">
                     <img src={ship.thumbnail} alt="Default" className="" />
+                    {/* <Image src={ship.thumbnail} width={192} height={256} /> */}
                     {false && (
                       <div className="absolute bottom-3 left-0 w-full bg-zinc-950">
                         <p className="text-center">{ship.names.en}</p>
@@ -138,6 +139,7 @@ const AzurApiIndex = ({}) => {
 
       {/* this solution works, but does not fill the card size */}
       {/* based on AL wiki showing ship drops from event... */}
+      {/* TODO: performance issues on thumbnails (50mb) -> webp? */}
       <div
         className="grid justify-evenly gap-y-5"
         style={{

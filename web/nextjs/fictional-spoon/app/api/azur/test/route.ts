@@ -1,3 +1,4 @@
+import { promises as fs } from "fs"
 import { NextResponse } from "next/server"
 import { Ship } from "@azurapi/azurapi/build/types/ship"
 
@@ -8,12 +9,10 @@ export async function GET() {
   await checkUpdate()
 
   let ships: any[] = []
-  ships = fooGetAll()
+  // ships = fooGetAll()
   ships = fooGetSome()
   // ships = fooGetShips()
   // ships = fooGetShipByName()
-
-  // console.log("foo length:", ships.length)
 
   return NextResponse.json({ list: [...ships] })
 }
