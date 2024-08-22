@@ -1,24 +1,20 @@
 "use client"
 
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { Ship } from "@azurapi/azurapi/build/types/ship"
 import axios from "axios"
-import { LaptopIcon, MoonIcon, SunIcon } from "lucide-react"
 
-import { getWikiName, shipToUrl } from "@/lib/myutils"
-import { getShipByUrl } from "@/lib/serverutils"
+import { shipToUrl } from "@/lib/myutils"
 import { cn } from "@/lib/utils"
 
 import { Button } from "./ui/button"
 import {
   CommandDialog,
   CommandEmpty,
-  CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
 } from "./ui/command"
 
 interface CommandMenuProps {}

@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import Link from "next/link"
 import { Ship } from "@azurapi/azurapi/build/types/ship"
 import { Label } from "@radix-ui/react-label"
@@ -8,7 +8,7 @@ import axios from "axios"
 import { Ban, RotateCw } from "lucide-react"
 import toast from "react-hot-toast"
 
-import { getWikiName, isDevEnv, shipToUrl } from "@/lib/myutils"
+import { isDevEnv, shipToUrl } from "@/lib/myutils"
 
 import { Button } from "./ui/button"
 import { Card, CardContent } from "./ui/card"
@@ -209,7 +209,7 @@ const AzurApiIndex = ({}) => {
       {/* container */}
       <div className="flex flex-row gap-5">
         {/* Filter buttons */}
-        <Card className="flex flex-col gap-5 p-5 w-[400px]">
+        <Card className="flex w-[400px] flex-col gap-5 p-5">
           <div className="flex items-center gap-5">
             <Button onClick={azurApiCall}>
               <RotateCw className="mr-2 size-4" /> Reload
@@ -245,7 +245,7 @@ const AzurApiIndex = ({}) => {
         </Card>
 
         {/* Card results */}
-        <Card className=" p-5 px-1 flex-grow">
+        <Card className=" grow p-5 px-1">
           {/* this solution works, but does not fill the card size */}
           {/* based on AL wiki showing ship drops from event... */}
           {/* TODO: performance issues on thumbnails (50mb) -> webp? */}
