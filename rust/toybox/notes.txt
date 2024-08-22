@@ -1,0 +1,4 @@
+For debugging with vscode, use:
+> Rust Analyzer: Debug 
+
+Or go to main function and use the codelens / context hover to debug
