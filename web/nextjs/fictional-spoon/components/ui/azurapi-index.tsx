@@ -56,7 +56,7 @@ let items: ItemType[] = [
 ]
 
 let searchDelayTimeout: any = undefined
-const searchDelay = isDevEnv ? 1000 : 100
+const searchDelay = isDevEnv ? 0 : 100
 
 // @refresh reset
 const AzurApiIndex = ({}) => {
@@ -98,7 +98,6 @@ const AzurApiIndex = ({}) => {
           .get(`/api/azur/test?searchText=${txt}`, {})
           .then((res) => {
             const ships: Ship[] = res.data.list
-            toast(`res size: ${ships.length}`)
             setShipList(ships)
           })
           .catch((err) => {
@@ -117,11 +116,15 @@ const AzurApiIndex = ({}) => {
   const inputHandler = useCallback((e: any) => {
     const txt = e.target.value
 
-    setSearchWaiting(true)
-    if (searchDelayTimeout) {
-      clearTimeout(searchDelayTimeout)
+    if (searchDelay > 0) {
+      setSearchWaiting(true)
+      if (searchDelayTimeout) {
+        clearTimeout(searchDelayTimeout)
+      }
+      searchDelayTimeout = setTimeout(doStuff, searchDelay)
+    } else {
+      doStuff()
     }
-    searchDelayTimeout = setTimeout(doStuff, searchDelay)
 
     function doStuff() {
       setSearchWaiting(false)
@@ -243,7 +246,7 @@ const AzurApiIndex = ({}) => {
         </Card>
 
         {/* Card results */}
-        <Card className="bg-green-900 p-5 flex-grow">
+        <Card className="bg-green-900 p-5 px-1 flex-grow">
           {/* this solution works, but does not fill the card size */}
           {/* based on AL wiki showing ship drops from event... */}
           {/* TODO: performance issues on thumbnails (50mb) -> webp? */}
@@ -255,7 +258,8 @@ const AzurApiIndex = ({}) => {
               }}
             >
               {shipList.length > 0
-                ? shipList.map((ship: Ship) => {
+                ? shipList.map((ship: Ship, idx) => {
+                    if (idx > 25) return null
                     return genShipCard(ship)
                   })
                 : Array.from(Array(10).keys()).map((i) => {
