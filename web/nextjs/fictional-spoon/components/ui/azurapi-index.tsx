@@ -50,6 +50,7 @@ const AzurApiIndex = ({}) => {
   }, [])
 
   const resetList = useCallback(async () => {
+    toast("Reset")
     setShipList([] as Ship[])
   }, [])
 
