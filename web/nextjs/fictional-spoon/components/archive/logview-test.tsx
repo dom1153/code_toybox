@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 import { LazyLog, ScrollFollow } from "@melloware/react-logviewer"
 
-import { Button } from "./ui/button"
+import { Button } from "../ui/button"
 
 const LogViewTest = () => {
   const [log, setLog] = useState(`hello, hey\nblah\n`)

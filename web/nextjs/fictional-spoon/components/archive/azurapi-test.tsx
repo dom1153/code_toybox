@@ -7,14 +7,20 @@ import { Ship } from "@azurapi/azurapi/build/types/ship"
 import { LazyLog, ScrollFollow } from "@melloware/react-logviewer"
 import axios from "axios"
 
-import { Button } from "./ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card"
+import { Button } from "../ui/button"
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../ui/card"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "./ui/tooltip"
+} from "../ui/tooltip"
 
 const AzurApiTest = ({}) => {
   const [counter, setCounter] = useState(1)
