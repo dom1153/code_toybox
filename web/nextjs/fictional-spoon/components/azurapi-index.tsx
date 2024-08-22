@@ -1,27 +1,25 @@
 "use client"
 
-import React, { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import Link from "next/link"
 import { Ship } from "@azurapi/azurapi/build/types/ship"
 import { Label } from "@radix-ui/react-label"
 import axios from "axios"
 import { Ban, RotateCw } from "lucide-react"
 import toast from "react-hot-toast"
-import InfiniteScroll from "react-infinite-scroll-component"
 
-import { isDevEnv } from "@/lib/myutils"
-import { cn } from "@/lib/utils"
+import { getWikiName, isDevEnv, shipToUrl } from "@/lib/myutils"
 
-import { Button } from "../ui/button"
-import { Card, CardContent } from "../ui/card"
+import { Button } from "./ui/button"
+import { Card, CardContent } from "./ui/card"
+import { Checkbox } from "./ui/checkbox"
+import { Input } from "./ui/input"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "../ui/tooltip"
-import { Checkbox } from "./checkbox"
-import { Input } from "./input"
+} from "./ui/tooltip"
 
 interface ItemType {
   id: string
@@ -60,12 +58,13 @@ const searchDelay = isDevEnv ? 0 : 100
 
 // @refresh reset
 const AzurApiIndex = ({}) => {
+  // is shiplist not stored between pages? is it possible to change that?
   const [shipList, setShipList] = useState([] as Ship[])
   const [searchText, setSearchText] = useState("")
   const [searchWaiting, setSearchWaiting] = useState(false)
 
   useEffect(() => {
-    azurApiCall()
+    if (shipList.length <= 0) azurApiCall()
   }, [])
 
   const azurApiCall = useCallback(async () => {
@@ -167,8 +166,8 @@ const AzurApiIndex = ({}) => {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Link href={ship.wikiUrl} target="_blank">
-                {/* TODO: this needs to be a custom card class */}
+              {/* TODO: this needs to be a custom card class */}
+              <Link href={shipToUrl(ship)}>
                 <Card className="w-40">
                   <div className="flex justify-center py-1">
                     <p>{ship.names.en}</p>
@@ -210,7 +209,7 @@ const AzurApiIndex = ({}) => {
       {/* container */}
       <div className="flex flex-row gap-5">
         {/* Filter buttons */}
-        <Card className="flex flex-col gap-5 p-5 bg-blue-900 w-[400px]">
+        <Card className="flex flex-col gap-5 p-5 w-[400px]">
           <div className="flex items-center gap-5">
             <Button onClick={azurApiCall}>
               <RotateCw className="mr-2 size-4" /> Reload
@@ -246,7 +245,7 @@ const AzurApiIndex = ({}) => {
         </Card>
 
         {/* Card results */}
-        <Card className="bg-green-900 p-5 px-1 flex-grow">
+        <Card className=" p-5 px-1 flex-grow">
           {/* this solution works, but does not fill the card size */}
           {/* based on AL wiki showing ship drops from event... */}
           {/* TODO: performance issues on thumbnails (50mb) -> webp? */}

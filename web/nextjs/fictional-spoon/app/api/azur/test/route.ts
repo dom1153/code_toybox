@@ -22,6 +22,8 @@ export async function GET(request: NextRequest) {
     ships = fooGetShipBySearchText(query)
   }
 
+  // if (isDevEnv) printJson(ships)
+
   return NextResponse.json({ list: [...ships] })
 }
 
@@ -51,4 +53,10 @@ function fooGetAll() {
 
 function fooGetSome() {
   return azurapi.ships.raw.filter((s) => s.rarity == "Normal")
+}
+
+function printJson(ships: any) {
+  if (ships.length >= 1) {
+    console.log(ships[0])
+  }
 }
