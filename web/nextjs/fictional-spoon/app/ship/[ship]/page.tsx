@@ -1,8 +1,5 @@
 // todo make this server rendered
 
-import { useEffect } from "react"
-
-import { checkUpdate } from "@/lib/azurapi"
 import { getShipByUrl } from "@/lib/serverutils"
 import {
   Card,
@@ -15,7 +12,7 @@ import {
 
 export default async function Page({ params }: { params: { ship: string } }) {
   //   VVV this is dumb, but yolo
-  checkUpdate()
+  // checkUpdate()
 
   const ship = getShipByUrl(params.ship)
 

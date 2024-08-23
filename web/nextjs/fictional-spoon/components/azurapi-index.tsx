@@ -1,6 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useState } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { Ship } from "@azurapi/azurapi/build/types/ship"
 import { Label } from "@radix-ui/react-label"
@@ -69,22 +70,24 @@ const AzurApiIndex = ({}) => {
 
   const azurApiCall = useCallback(async () => {
     try {
-      toast("Refreshing API")
+      if (isDevEnv) toast("Refreshing API")
       await axios
         .get(`/api/azur/test`, {})
         .then((res) => {
           const ships: Ship[] = res.data.list
-          toast(`res size: ${ships.length}`)
+          if (isDevEnv) toast(`res size: ${ships.length}`)
           setShipList(ships)
         })
         .catch((err) => {
           console.log(err)
-          toast("API refresh: error!")
+          if (isDevEnv) toast("API refresh: error!")
         })
     } catch (error) {
-      console.error("Callback: error!")
-      toast("Callback: error!")
-      console.log(error)
+      if (isDevEnv) {
+        console.error("Callback: error!")
+        if (isDevEnv) toast("Callback: error!")
+        console.log(error)
+      }
     } finally {
       // console.info("Callback: success!")
     }
@@ -173,8 +176,14 @@ const AzurApiIndex = ({}) => {
                     <p>{ship.names.en}</p>
                   </div>
                   <CardContent className="relative p-0">
-                    <img src={ship.thumbnail} alt="Default" className="" />
-                    {/* <Image src={ship.thumbnail} width={192} height={256} /> */}
+                    {/* TODO: use wikiURL as fallback; need a way to check fs; fetch maybe? */}
+                    {/* <img src={ship.thumbnail} alt="Default" className="" /> */}
+                    <Image
+                      src={`/thumbs/webp/${ship.id}.webp`}
+                      alt={ship.names.en}
+                      width={192}
+                      height={256}
+                    />
                     {false && (
                       <div className="absolute bottom-3 left-0 w-full bg-zinc-950">
                         <p className="text-center">{ship.names.en}</p>
@@ -258,7 +267,7 @@ const AzurApiIndex = ({}) => {
             >
               {shipList.length > 0
                 ? shipList.map((ship: Ship, idx) => {
-                    if (idx > 25) return null
+                    if (idx > 25 && isDevEnv) return null
                     return genShipCard(ship)
                   })
                 : Array.from(Array(10).keys()).map((i) => {

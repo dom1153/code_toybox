@@ -1,10 +1,10 @@
 import { cache } from "react"
 
-import { checkUpdate } from "./azurapi"
+import azurapi from "@/lib/azurapi"
 
 export const getShipByUrl = cache((reqPath: string) => {
   //   await checkUpdate()
-  console.log("looking for: ", reqPath)
+  //   console.log("looking for: ", reqPath)
 
   let result = azurapi?.ships.raw.find((s) => {
     let wikiUrl = new URL(s.wikiUrl)
@@ -17,6 +17,6 @@ export const getShipByUrl = cache((reqPath: string) => {
     }
     return false
   })
-  console.log("findings?:", result?.wikiUrl)
+  //   console.log("findings?:", result?.wikiUrl)
   return result
 })
