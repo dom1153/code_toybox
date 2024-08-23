@@ -1,16 +1,13 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useState } from "react"
 import { Ship } from "@azurapi/azurapi/build/types/ship"
 import { Label } from "@radix-ui/react-label"
 import axios from "axios"
-import { Ban, RotateCw } from "lucide-react"
 import toast from "react-hot-toast"
 
 import { isDevEnv } from "@/lib/myutils"
-import useFullShipList from "@/hooks/useShipList"
 
-import { Button } from "../ui/button"
 import { Card } from "../ui/card"
 import { Checkbox } from "../ui/checkbox"
 import { Input } from "../ui/input"
@@ -64,12 +61,6 @@ const AzurApiIndex = ({ fullShipList }: AzurApiIndexProps) => {
   const [searchWaiting, setSearchWaiting] = useState(false)
   // const { data: fullShipList } = useFullShipList()
 
-  // useEffect(() => {
-  //   if (shipList.length <= 0 && fullShipList) {
-  //     setShipList(fullShipList)
-  //   }
-  // }, [fullShipList, shipList.length])
-
   // // TODO: focus input bar via ref
   // useEffect(() => {
   //   const down = (e: KeyboardEvent) => {
@@ -92,50 +83,6 @@ const AzurApiIndex = ({ fullShipList }: AzurApiIndexProps) => {
   //   return () => document.removeEventListener("keydown", down)
   // }, [])
 
-  const azurApiHandler = useCallback(async () => {
-    try {
-      if (isDevEnv) toast("Refreshing API")
-      await axios
-        .get(`/api/azur/test`, {})
-        .then((res) => {
-          const ships: Ship[] = res.data.list
-          if (isDevEnv) toast(`res size: ${ships.length}`)
-          setShipList(ships)
-        })
-        .catch((err) => {
-          console.log(err)
-          if (isDevEnv) toast("API refresh: error!")
-        })
-    } catch (error) {
-      if (isDevEnv) {
-        console.error("Callback: error!")
-        if (isDevEnv) toast("Callback: error!")
-        console.log(error)
-      }
-    } finally {
-      // console.info("Callback: success!")
-    }
-  }, [])
-
-  const searchTextQuery = useCallback(async (txt: any) => {
-    try {
-      await axios
-        .get(`/api/azur/test?searchText=${txt}`, {})
-        .then((res) => {
-          const ships: Ship[] = res.data.list
-          setShipList(ships)
-        })
-        .catch((err) => {
-          console.log(err)
-          toast("API search: error!")
-        })
-    } catch (error) {
-      console.error("Callback: error!")
-      toast("Callback: error!")
-      console.log(error)
-    }
-  }, [])
-
   const textInputHandler = useCallback(
     (e: any) => {
       const txt = e.target.value
@@ -150,12 +97,20 @@ const AzurApiIndex = ({ fullShipList }: AzurApiIndexProps) => {
         doStuff()
       }
 
+      // generalize into lists
+      function fooGetShipBySearchText(text: string) {
+        const lowerText = text.toLowerCase()
+        return fullShipList.filter((i: Ship) =>
+          i.names.en.toLowerCase().includes(lowerText)
+        )
+      }
+
       function doStuff() {
         setSearchWaiting(false)
-        searchTextQuery(txt)
+        setShipList(fooGetShipBySearchText(txt))
       }
     },
-    [searchTextQuery]
+    [fullShipList]
   )
 
   const resetListHandler = useCallback(async () => {
@@ -176,15 +131,6 @@ const AzurApiIndex = ({ fullShipList }: AzurApiIndexProps) => {
       <div className="flex flex-row gap-5">
         {/* Filter buttons */}
         <Card className="flex w-[400px] flex-col gap-5 p-5">
-          <div className="flex items-center gap-5">
-            <Button onClick={azurApiHandler}>
-              <RotateCw className="mr-2 size-4" /> Reload
-            </Button>
-            <Button onClick={resetListHandler}>
-              <Ban className="mr-2 size-4" /> Reset
-            </Button>
-            <p>Ship Count: {shipList.length}</p>
-          </div>
           <div className="grid w-full max-w-sm items-center gap-1.5">
             {/* TODO: use an icon */}
             <Label htmlFor="Search">Search</Label>

@@ -29,8 +29,12 @@ const ShipCard: React.FC<ShipCardProps> = ({ ship }) => {
                     <p>{ship.names.en}</p>
                   </div>
                   <CardContent className="relative p-0">
-                    {/* TODO: use wikiURL as fallback; need a way to check fs; fetch maybe? */}
+                    {/* TODO: use wikiURL as fallback; need a way to check fs; remote routes */}
+                    {/* Could also try remote, then update quality dynamically */}
+                    {/* use 256 placeholder image in the future (static) or blurData */}
+                    {/* https://nextjs.org/docs/app/api-reference/components/image */}
                     {/* <img src={ship.thumbnail} alt="Default" className="" /> */}
+                    {/* Vercel images are lazy by default! 🙌 */}
                     <Image
                       src={`/thumbs/webp/${ship.id}.webp`}
                       alt={ship.names.en}

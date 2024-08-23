@@ -17,3 +17,13 @@ export function shipToUrl(ship: Ship) {
 }
 
 // export const fetcher = (url: string) => axios.get(url).then((res) => res.data)
+
+// todo make a class shipUtils or something, whatever it is in js land
+export function sortDefault(ships: Ship[]) {
+  ships.sort((a: Ship, b: Ship) => {
+    if (a.id < b.id) return -1
+    if (a.id > b.id) return 1
+    return 0
+  })
+  return ships
+}

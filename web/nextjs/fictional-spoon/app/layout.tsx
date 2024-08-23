@@ -4,6 +4,7 @@ import { Toaster } from "react-hot-toast"
 
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
+import { sortDefault } from "@/lib/myutils"
 import { cn } from "@/lib/utils"
 import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
@@ -30,7 +31,16 @@ interface RootLayoutProps {
   children: React.ReactNode
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({ children }: RootLayoutProps) {
+  // TODO atomize data; if possible
+  // theme provider does something similar, probably
+  // https://blog.logrocket.com/guide-state-management-next-js/
+  const data = await fetch(
+    "https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/ships.json"
+  )
+    .then((res) => res.json())
+    .then((responseJson) => sortDefault(responseJson))
+
   return (
     <>
       <html lang="en" suppressHydrationWarning>
@@ -44,7 +54,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Toaster />
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="relative flex min-h-screen flex-col">
-              <SiteHeader />
+              <SiteHeader fullShipList={data} />
               <div className="flex-1">{children}</div>
             </div>
             <TailwindIndicator />

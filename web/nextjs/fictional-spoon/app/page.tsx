@@ -1,13 +1,13 @@
-import fsPromises from "fs/promises"
-import path from "path"
-import { GetStaticProps, InferGetStaticPropsType } from "next"
-
+import { sortDefault } from "@/lib/myutils"
 import AzurApiIndex from "@/components/myui/azurapi-index"
 
 export default async function IndexPage() {
+  // TODO: this json is about 5mb and should be pruned
   const data = await fetch(
     "https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/ships.json"
-  ).then((res) => res.json())
+  )
+    .then((res) => res.json())
+    .then((responseJson) => sortDefault(responseJson))
 
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">

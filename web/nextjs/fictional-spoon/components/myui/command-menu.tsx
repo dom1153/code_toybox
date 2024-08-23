@@ -18,9 +18,11 @@ import {
   CommandList,
 } from "../ui/command"
 
-interface CommandMenuProps {}
+interface CommandMenuProps {
+  fullShipList: Ship[]
+}
 
-const CommandMenu: React.FC<CommandMenuProps> = ({}) => {
+const CommandMenu: React.FC<CommandMenuProps> = ({ fullShipList }) => {
   const router = useRouter()
 
   const [open, setOpen] = useState(false)
@@ -79,7 +81,7 @@ const CommandMenu: React.FC<CommandMenuProps> = ({}) => {
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
 
-          {shipList.map((s, i) => {
+          {fullShipList.map((s, i) => {
             // TODO: memoize? ; performance is slow on dev
             return (
               <CommandItem

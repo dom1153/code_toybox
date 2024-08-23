@@ -14,10 +14,12 @@ import {
 } from "@/components/ui/card"
 
 export default async function Page({ params }: { params: { ship: string } }) {
-  //   VVV this is dumb, but yolo
-  // checkUpdate()
+  // yeah this is gonna be terrible for performance
+  const data = await fetch(
+    "https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/ships.json"
+  ).then((res) => res.json())
 
-  const ship = getShipByUrl(params.ship)
+  const ship = getShipByUrl(data, params.ship)
 
   return (
     <>
