@@ -67,7 +67,7 @@ const AzurApiIndex = ({}) => {
   const [searchWaiting, setSearchWaiting] = useState(false)
 
   useEffect(() => {
-    if (shipList.length <= 0) azurApiHandler()
+    azurApiHandler()
   }, [])
 
   // // TODO: focus input bar via ref
