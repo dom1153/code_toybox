@@ -5,6 +5,7 @@ import { MedievalSharp } from "next/font/google"
 import axios from "axios"
 import sharp from "sharp"
 
+// TODO fixme ; replace with new json
 import azurapi, { checkUpdate } from "../lib/azurapi"
 
 // https://byby.dev/node-download-imagehttps://byby.dev/node-download-image

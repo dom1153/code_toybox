@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { Ship } from "@azurapi/azurapi/build/types/ship"
 
-import azurapi, { azurShipDB, checkUpdate } from "@/lib/azurapi"
+import { azurShipDB, checkUpdate } from "@/lib/azurapi"
 import { isDevEnv } from "@/lib/myutils"
 
 // Unhandled Rejection: Error: EROFS: read-only file system, (new AzurAPI())
@@ -27,21 +27,21 @@ export async function GET(request: NextRequest) {
   return NextResponse.json({ list: [...ships] })
 }
 
-function fooGetShips() {
-  if (!isDevEnv) return
-  let ids = [`001`, `002`, `003`]
-  let x = ids.map((i) => {
-    let ship = azurapi?.ships.id(i) as Ship
-    return ship
-  })
-  return x ? x : []
-}
+// function fooGetShips() {
+//   if (!isDevEnv) return
+//   let ids = [`001`, `002`, `003`]
+//   let x = ids.map((i) => {
+//     let ship = azurapi?.ships.id(i) as Ship
+//     return ship
+//   })
+//   return x ? x : []
+// }
 
-function fooGetShipByName() {
-  if (!isDevEnv) return
-  let x = azurapi?.ships.name(`Glowworm`)
-  return x ? x : []
-}
+// function fooGetShipByName() {
+//   if (!isDevEnv) return
+//   let x = azurapi?.ships.name(`Glowworm`)
+//   return x ? x : []
+// }
 
 function fooGetShipBySearchText(text: string) {
   const lowerText = text.toLowerCase()
