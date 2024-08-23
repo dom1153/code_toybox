@@ -2,8 +2,7 @@ export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
   name: "Azur Lane DB 2",
-  description:
-    "Beautifully designed components built with Radix UI and Tailwind CSS.",
+  description: "A custom frontend database from the official Azur Lane wiki.",
   mainNav: [
     {
       title: "Home",

@@ -2,10 +2,9 @@ import { cache } from "react"
 
 import azurapi from "@/lib/azurapi"
 
-export const getShipByUrl = cache((reqPath: string) => {
-  //   await checkUpdate()
-  //   console.log("looking for: ", reqPath)
+// === util funtions for 'use server' code
 
+export const getShipByUrl = cache((reqPath: string) => {
   let result = azurapi?.ships.raw.find((s) => {
     let wikiUrl = new URL(s.wikiUrl)
     let path = wikiUrl.pathname
@@ -17,6 +16,5 @@ export const getShipByUrl = cache((reqPath: string) => {
     }
     return false
   })
-  //   console.log("findings?:", result?.wikiUrl)
   return result
 })

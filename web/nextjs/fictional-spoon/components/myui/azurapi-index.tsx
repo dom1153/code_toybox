@@ -11,16 +11,18 @@ import toast from "react-hot-toast"
 
 import { isDevEnv, shipToUrl } from "@/lib/myutils"
 
-import { Button } from "./ui/button"
-import { Card, CardContent } from "./ui/card"
-import { Checkbox } from "./ui/checkbox"
-import { Input } from "./ui/input"
+import { Button } from "../ui/button"
+import { Card, CardContent } from "../ui/card"
+import { Checkbox } from "../ui/checkbox"
+import { Input } from "../ui/input"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "./ui/tooltip"
+} from "../ui/tooltip"
+import DummyCard from "./index/dummy-card"
+import ShipCard from "./index/shipcard"
 
 interface ItemType {
   id: string
@@ -65,7 +67,7 @@ const AzurApiIndex = ({}) => {
   const [searchWaiting, setSearchWaiting] = useState(false)
 
   useEffect(() => {
-    if (shipList.length <= 0) azurApiCall()
+    if (shipList.length <= 0) azurApiHandler()
   }, [])
 
   // // TODO: focus input bar via ref
@@ -90,7 +92,7 @@ const AzurApiIndex = ({}) => {
   //   return () => document.removeEventListener("keydown", down)
   // }, [])
 
-  const azurApiCall = useCallback(async () => {
+  const azurApiHandler = useCallback(async () => {
     try {
       if (isDevEnv) toast("Refreshing API")
       await axios
@@ -115,7 +117,7 @@ const AzurApiIndex = ({}) => {
     }
   }, [])
 
-  const querySearchText = useCallback(
+  const searchTextQuery = useCallback(
     async (txt: any) => {
       try {
         await axios
@@ -137,7 +139,7 @@ const AzurApiIndex = ({}) => {
     [searchText]
   )
 
-  const inputHandler = useCallback((e: any) => {
+  const textInputHandler = useCallback((e: any) => {
     const txt = e.target.value
 
     if (searchDelay > 0) {
@@ -152,88 +154,14 @@ const AzurApiIndex = ({}) => {
 
     function doStuff() {
       setSearchWaiting(false)
-      querySearchText(txt)
+      searchTextQuery(txt)
     }
   }, [])
 
-  const resetList = useCallback(async () => {
-    toast("Reset")
+  const resetListHandler = useCallback(async () => {
+    if (isDevEnv) toast("Reset")
     setShipList([] as Ship[])
   }, [])
-
-  const DummyCard = (i: any) => {
-    return (
-      <div className="">
-        <Card className="w-40">
-          <div className="flex justify-center py-1">
-            <p>{`🅱️enterprise`}</p>
-          </div>
-          <CardContent className="relative p-0">
-            <img
-              src={`https://azurlane.netojuu.com/images/6/64/EnterpriseShipyardIcon.png`}
-              alt="Default"
-              className=""
-            />
-            {false && (
-              <div className="absolute bottom-3 left-0 w-full bg-zinc-950">
-                <p className="text-center">{`🅱️enterprise`}</p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      </div>
-    )
-  }
-
-  const genShipCard = (ship: Ship) => {
-    return (
-      <div key={ship.id} className="">
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              {/* TODO: this needs to be a custom card class */}
-              <Link href={shipToUrl(ship)}>
-                <Card className="w-40">
-                  <div className="flex justify-center py-1">
-                    <p>{ship.names.en}</p>
-                  </div>
-                  <CardContent className="relative p-0">
-                    {/* TODO: use wikiURL as fallback; need a way to check fs; fetch maybe? */}
-                    {/* <img src={ship.thumbnail} alt="Default" className="" /> */}
-                    <Image
-                      src={`/thumbs/webp/${ship.id}.webp`}
-                      alt={ship.names.en}
-                      width={192}
-                      height={256}
-                    />
-                    {false && (
-                      <div className="absolute bottom-3 left-0 w-full bg-zinc-950">
-                        <p className="text-center">{ship.names.en}</p>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent className="font-mono">
-              <div className="">
-                <p>id: {ship.id}</p>
-                <p>hull: {ship.hullType}</p>
-                <p>faction: {ship.nationality}</p>
-                <p>rarity: {ship.rarity}</p>
-                <p>class: {ship.class}</p>
-                <p>retrofit: {ship.retrofit ? "y" : "n"}</p>
-                <p>
-                  skins:{" "}
-                  {ship.skins.reduce((partialSum, i) => partialSum + 1, 0)}
-                </p>
-              </div>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      </div>
-    )
-  }
 
   return (
     <>
@@ -242,10 +170,10 @@ const AzurApiIndex = ({}) => {
         {/* Filter buttons */}
         <Card className="flex w-[400px] flex-col gap-5 p-5">
           <div className="flex items-center gap-5">
-            <Button onClick={azurApiCall}>
+            <Button onClick={azurApiHandler}>
               <RotateCw className="mr-2 size-4" /> Reload
             </Button>
-            <Button onClick={resetList}>
+            <Button onClick={resetListHandler}>
               <Ban className="mr-2 size-4" /> Reset
             </Button>
             <p>Ship Count: {shipList.length}</p>
@@ -257,7 +185,7 @@ const AzurApiIndex = ({}) => {
               type="Search"
               id="Search"
               placeholder="Search"
-              onChange={inputHandler}
+              onChange={textInputHandler}
             />
           </div>
           {items.map((i) => (
@@ -277,7 +205,6 @@ const AzurApiIndex = ({}) => {
 
         {/* Card results */}
         <Card className=" grow p-5 px-1">
-          {/* this solution works, but does not fill the card size */}
           {/* based on AL wiki showing ship drops from event... */}
           {/* TODO: performance issues on thumbnails (50mb) -> webp? */}
           {true && (
@@ -290,11 +217,11 @@ const AzurApiIndex = ({}) => {
               {shipList.length > 0
                 ? shipList.map((ship: Ship, idx) => {
                     if (idx > 25 && isDevEnv) return null
-                    return genShipCard(ship)
+                    return <ShipCard ship={ship} key={ship.id} />
                   })
                 : Array.from(Array(10).keys()).map((i) => {
-                    // if (!isDevEnv) return null
-                    return <DummyCard i={i} key={`card-${i}`} />
+                    if (!isDevEnv) return null
+                    return <DummyCard key={`dummy-card-${i}`} />
                   })}
             </div>
           )}

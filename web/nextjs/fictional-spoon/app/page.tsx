@@ -1,8 +1,4 @@
-import Link from "next/link"
-
-import { siteConfig } from "@/config/site"
-import { buttonVariants } from "@/components/ui/button"
-import AzurApiIndex from "@/components/azurapi-index"
+import AzurApiIndex from "@/components/myui/azurapi-index"
 
 export default async function IndexPage() {
   return (
@@ -11,38 +7,7 @@ export default async function IndexPage() {
         <section className="container">
           <AzurApiIndex />
         </section>
-
-        {false && (
-          <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
-            Foo Bar
-          </h1>
-        )}
-        {false && (
-          <p className="max-w-[700px] text-lg text-muted-foreground">
-            Just demoing stuff
-          </p>
-        )}
       </div>
-      {false && (
-        <div className="flex gap-4">
-          <Link
-            href={siteConfig.links.docs}
-            target="_blank"
-            rel="noreferrer"
-            className={buttonVariants()}
-          >
-            Documentation
-          </Link>
-          <Link
-            target="_blank"
-            rel="noreferrer"
-            href={siteConfig.links.github}
-            className={buttonVariants({ variant: "outline" })}
-          >
-            GitHub
-          </Link>
-        </div>
-      )}
     </section>
   )
 }

@@ -1,4 +1,3 @@
-import { promises as fs } from "fs"
 import { NextRequest, NextResponse } from "next/server"
 import { Ship } from "@azurapi/azurapi/build/types/ship"
 
@@ -18,7 +17,6 @@ export async function GET(request: NextRequest) {
   // ships = fooGetShipByName()
 
   if (query) {
-    // console.log(query)
     ships = fooGetShipBySearchText(query)
   }
 
