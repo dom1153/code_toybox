@@ -68,6 +68,28 @@ const AzurApiIndex = ({}) => {
     if (shipList.length <= 0) azurApiCall()
   }, [])
 
+  // // TODO: focus input bar via ref
+  // useEffect(() => {
+  //   const down = (e: KeyboardEvent) => {
+  //     if ((e.key === "f" && (e.metaKey || e.ctrlKey)) || e.key === "/") {
+  //       if (
+  //         (e.target instanceof HTMLElement && e.target.isContentEditable) ||
+  //         e.target instanceof HTMLInputElement ||
+  //         e.target instanceof HTMLTextAreaElement ||
+  //         e.target instanceof HTMLSelectElement
+  //       ) {
+  //         return
+  //       }
+
+  //       e.preventDefault()
+  //       // setOpen((open) => !open)
+  //     }
+  //   }
+
+  //   document.addEventListener("keydown", down)
+  //   return () => document.removeEventListener("keydown", down)
+  // }, [])
+
   const azurApiCall = useCallback(async () => {
     try {
       if (isDevEnv) toast("Refreshing API")
