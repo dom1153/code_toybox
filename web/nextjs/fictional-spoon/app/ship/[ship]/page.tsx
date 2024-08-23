@@ -1,4 +1,7 @@
 // todo make this server rendered
+// though; it may have to end up being client side
+
+import Image from "next/image"
 
 import { getShipByUrl } from "@/lib/serverutils"
 import {
@@ -28,7 +31,14 @@ export default async function Page({ params }: { params: { ship: string } }) {
               </CardHeader>
               <CardContent>
                 <div className="w-96">
-                  <img src={ship.skins[0].image} alt="" />
+                  {/* <img src={ship.skins[0].image} alt="" /> */}
+                  {/* VVV what's the point of width and height if they're ignored... */}
+                  <Image
+                    src={ship.skins[0].image}
+                    alt={""}
+                    width={500}
+                    height={500}
+                  />
                 </div>
               </CardContent>
               <CardFooter>

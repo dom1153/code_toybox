@@ -1,26 +1,19 @@
 "use client"
 
 import { useCallback, useEffect, useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
 import { Ship } from "@azurapi/azurapi/build/types/ship"
 import { Label } from "@radix-ui/react-label"
 import axios from "axios"
 import { Ban, RotateCw } from "lucide-react"
 import toast from "react-hot-toast"
 
-import { isDevEnv, shipToUrl } from "@/lib/myutils"
+import { isDevEnv } from "@/lib/myutils"
+import useFullShipList from "@/hooks/useShipList"
 
 import { Button } from "../ui/button"
-import { Card, CardContent } from "../ui/card"
+import { Card } from "../ui/card"
 import { Checkbox } from "../ui/checkbox"
 import { Input } from "../ui/input"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../ui/tooltip"
 import DummyCard from "./index/dummy-card"
 import ShipCard from "./index/shipcard"
 
@@ -65,10 +58,13 @@ const AzurApiIndex = ({}) => {
   const [shipList, setShipList] = useState([] as Ship[])
   const [searchText, setSearchText] = useState("")
   const [searchWaiting, setSearchWaiting] = useState(false)
+  const { data: fullShipList } = useFullShipList()
 
   useEffect(() => {
-    azurApiHandler()
-  }, [])
+    if (shipList.length <= 0 && fullShipList) {
+      setShipList(fullShipList)
+    }
+  }, [fullShipList, shipList.length])
 
   // // TODO: focus input bar via ref
   // useEffect(() => {
@@ -117,46 +113,46 @@ const AzurApiIndex = ({}) => {
     }
   }, [])
 
-  const searchTextQuery = useCallback(
-    async (txt: any) => {
-      try {
-        await axios
-          .get(`/api/azur/test?searchText=${txt}`, {})
-          .then((res) => {
-            const ships: Ship[] = res.data.list
-            setShipList(ships)
-          })
-          .catch((err) => {
-            console.log(err)
-            toast("API search: error!")
-          })
-      } catch (error) {
-        console.error("Callback: error!")
-        toast("Callback: error!")
-        console.log(error)
-      }
-    },
-    [searchText]
-  )
-
-  const textInputHandler = useCallback((e: any) => {
-    const txt = e.target.value
-
-    if (searchDelay > 0) {
-      setSearchWaiting(true)
-      if (searchDelayTimeout) {
-        clearTimeout(searchDelayTimeout)
-      }
-      searchDelayTimeout = setTimeout(doStuff, searchDelay)
-    } else {
-      doStuff()
-    }
-
-    function doStuff() {
-      setSearchWaiting(false)
-      searchTextQuery(txt)
+  const searchTextQuery = useCallback(async (txt: any) => {
+    try {
+      await axios
+        .get(`/api/azur/test?searchText=${txt}`, {})
+        .then((res) => {
+          const ships: Ship[] = res.data.list
+          setShipList(ships)
+        })
+        .catch((err) => {
+          console.log(err)
+          toast("API search: error!")
+        })
+    } catch (error) {
+      console.error("Callback: error!")
+      toast("Callback: error!")
+      console.log(error)
     }
   }, [])
+
+  const textInputHandler = useCallback(
+    (e: any) => {
+      const txt = e.target.value
+
+      if (searchDelay > 0) {
+        setSearchWaiting(true)
+        if (searchDelayTimeout) {
+          clearTimeout(searchDelayTimeout)
+        }
+        searchDelayTimeout = setTimeout(doStuff, searchDelay)
+      } else {
+        doStuff()
+      }
+
+      function doStuff() {
+        setSearchWaiting(false)
+        searchTextQuery(txt)
+      }
+    },
+    [searchTextQuery]
+  )
 
   const resetListHandler = useCallback(async () => {
     if (isDevEnv) toast("Reset")
@@ -220,7 +216,7 @@ const AzurApiIndex = ({}) => {
                     return <ShipCard ship={ship} key={ship.id} />
                   })
                 : Array.from(Array(10).keys()).map((i) => {
-                    if (!isDevEnv) return null
+                    return null
                     return <DummyCard key={`dummy-card-${i}`} />
                   })}
             </div>

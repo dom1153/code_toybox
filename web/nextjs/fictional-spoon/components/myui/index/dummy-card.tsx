@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 import { Card, CardContent } from "@/components/ui/card"
 
 interface DummyCardProps {}
@@ -10,9 +12,11 @@ const DummyCard: React.FC<DummyCardProps> = ({}) => {
           <p>{`🅱️enterprise`}</p>
         </div>
         <CardContent className="relative p-0">
-          <img
-            src={`https://azurlane.netojuu.com/images/6/64/EnterpriseShipyardIcon.png`}
-            alt="Default"
+          <Image
+            src={`https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/images/skins/077/thumbnail.png`}
+            alt="Default (Enterprise)"
+            width={192}
+            height={256}
             className=""
           />
           {false && (

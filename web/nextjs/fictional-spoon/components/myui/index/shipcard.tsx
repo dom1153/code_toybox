@@ -54,6 +54,7 @@ const ShipCard: React.FC<ShipCardProps> = ({ ship }) => {
                 <p>rarity: {ship.rarity}</p>
                 <p>class: {ship.class}</p>
                 <p>retrofit: {ship.retrofit ? "y" : "n"}</p>
+                <p>{ship.thumbnail}</p>
                 <p>
                   skins:{" "}
                   {ship.skins.reduce((partialSum, i) => partialSum + 1, 0)}

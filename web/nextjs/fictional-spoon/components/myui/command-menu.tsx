@@ -7,6 +7,7 @@ import axios from "axios"
 
 import { shipToUrl } from "@/lib/myutils"
 import { cn } from "@/lib/utils"
+import useFullShipList from "@/hooks/useShipList"
 
 import { Button } from "../ui/button"
 import {
@@ -24,6 +25,7 @@ const CommandMenu: React.FC<CommandMenuProps> = ({}) => {
 
   const [open, setOpen] = useState(false)
   const [shipList, setShipList] = useState([] as Ship[])
+  const { data: fullShipList } = useFullShipList()
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -46,33 +48,15 @@ const CommandMenu: React.FC<CommandMenuProps> = ({}) => {
     return () => document.removeEventListener("keydown", down)
   }, [])
 
+  useEffect(() => {
+    if (shipList.length <= 0 && fullShipList) {
+      setShipList(fullShipList)
+    }
+  }, [fullShipList, shipList.length])
+
   const runCommand = useCallback((command: () => unknown) => {
     setOpen(false)
     command()
-  }, [])
-
-  useEffect(() => {
-    // todo store api results in a state for better between page results
-    azurApiCall()
-  }, [])
-
-  const azurApiCall = useCallback(async () => {
-    try {
-      await axios
-        .get(`/api/azur/test`, {})
-        .then((res) => {
-          const ships: Ship[] = res.data.list
-          setShipList(ships)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    } catch (error) {
-      console.error("Callback: error!")
-      console.log(error)
-    } finally {
-      // console.info("Callback: success!")
-    }
   }, [])
 
   return (
