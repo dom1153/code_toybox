@@ -10,8 +10,8 @@ declare global {
 }
 
 // A hack to prevent nextjs hotreloading from creating extra clients
-// const client = isDevEnv ? globalThis.azurapi || new AzurAPI() : undefined
-// if (process.env.NODE_ENV !== "production") globalThis.azurapi = client
+const client = isDevEnv ? globalThis.azurapi || new AzurAPI() : undefined
+if (process.env.NODE_ENV !== "production") globalThis.azurapi = client
 
 export function azurShipDB() {
   if (globalThis.azurShipJson && globalThis.azurShipJson?.length > 0) {

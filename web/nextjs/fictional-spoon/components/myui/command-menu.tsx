@@ -25,7 +25,7 @@ const CommandMenu: React.FC<CommandMenuProps> = ({}) => {
 
   const [open, setOpen] = useState(false)
   const [shipList, setShipList] = useState([] as Ship[])
-  const { data: fullShipList } = useFullShipList()
+  // const { data: fullShipList } = useFullShipList()
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -48,11 +48,11 @@ const CommandMenu: React.FC<CommandMenuProps> = ({}) => {
     return () => document.removeEventListener("keydown", down)
   }, [])
 
-  useEffect(() => {
-    if (shipList.length <= 0 && fullShipList) {
-      setShipList(fullShipList)
-    }
-  }, [fullShipList, shipList.length])
+  // useEffect(() => {
+  //   if (shipList.length <= 0 && fullShipList) {
+  //     setShipList(fullShipList)
+  //   }
+  // }, [fullShipList, shipList.length])
 
   const runCommand = useCallback((command: () => unknown) => {
     setOpen(false)

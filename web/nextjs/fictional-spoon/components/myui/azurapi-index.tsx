@@ -52,19 +52,23 @@ let items: ItemType[] = [
 let searchDelayTimeout: any = undefined
 const searchDelay = isDevEnv ? 0 : 100
 
+interface AzurApiIndexProps {
+  fullShipList: Ship[]
+}
+
 // @refresh reset
-const AzurApiIndex = ({}) => {
+const AzurApiIndex = ({ fullShipList }: AzurApiIndexProps) => {
   // is shiplist not stored between pages? is it possible to change that?
   const [shipList, setShipList] = useState([] as Ship[])
   const [searchText, setSearchText] = useState("")
   const [searchWaiting, setSearchWaiting] = useState(false)
-  const { data: fullShipList } = useFullShipList()
+  // const { data: fullShipList } = useFullShipList()
 
-  useEffect(() => {
-    if (shipList.length <= 0 && fullShipList) {
-      setShipList(fullShipList)
-    }
-  }, [fullShipList, shipList.length])
+  // useEffect(() => {
+  //   if (shipList.length <= 0 && fullShipList) {
+  //     setShipList(fullShipList)
+  //   }
+  // }, [fullShipList, shipList.length])
 
   // // TODO: focus input bar via ref
   // useEffect(() => {
@@ -159,6 +163,13 @@ const AzurApiIndex = ({}) => {
     setShipList([] as Ship[])
   }, [])
 
+  function generateDummyCards() {
+    Array.from(Array(10).keys()).map((i) => {
+      return null
+      return <DummyCard key={`dummy-card-${i}`} />
+    })
+  }
+
   return (
     <>
       {/* container */}
@@ -215,9 +226,9 @@ const AzurApiIndex = ({}) => {
                     if (idx > 25 && isDevEnv) return null
                     return <ShipCard ship={ship} key={ship.id} />
                   })
-                : Array.from(Array(10).keys()).map((i) => {
-                    return null
-                    return <DummyCard key={`dummy-card-${i}`} />
+                : fullShipList.map((ship: Ship, idx) => {
+                    if (idx > 25 && isDevEnv) return null
+                    return <ShipCard ship={ship} key={ship.id} />
                   })}
             </div>
           )}
