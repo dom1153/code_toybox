@@ -1,0 +1,13 @@
+[project]
+name = "hello-world"
+version = "0.1.0"
+description = "Add a short description here"
+authors = ["Dominic Dang <dominicdang@protonmail.com>"]
+channels = ["conda-forge"]
+platforms = ["osx-arm64"]
+
+[tasks]
+hello = "python hello_world.py"
+
+[dependencies]
+python = ">=3.12.5,<3.13"
