@@ -1,0 +1,13 @@
+---
+url: https://dom1153.github.io/personal_website
+
+input: ./pages
+
+exclude:
+  - "hidden/"
+
+branding:
+  title: Dominic Dang
+  # label:
+
+output: .retype

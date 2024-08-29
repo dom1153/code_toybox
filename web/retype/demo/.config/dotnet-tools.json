@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "retypeapp": {
+      "version": "3.5.0",
+      "commands": [
+        "retype"
+      ]
+    }
+  }
+}
