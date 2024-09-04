@@ -1,9 +1,9 @@
 "use client"
 
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Ship } from "@azurapi/azurapi/build/types/ship"
 import { Label } from "@radix-ui/react-label"
-import axios from "axios"
+import Fuse from "fuse.js"
 import toast from "react-hot-toast"
 
 import { isDevEnv } from "@/lib/myutils"
@@ -53,35 +53,56 @@ interface AzurApiIndexProps {
   fullShipList: Ship[]
 }
 
+const fuseTextSearchOptions = {
+  keys: ["names.en"],
+  sortFn: (a: any, b: any) => {
+    if (a.id < b.id) return -1
+    if (a.id > b.id) return 1
+    return 0
+  },
+  includeScore: true,
+}
+
 // @refresh reset
 const AzurApiIndex = ({ fullShipList }: AzurApiIndexProps) => {
   // is shiplist not stored between pages? is it possible to change that?
   const [shipList, setShipList] = useState([] as Ship[])
   const [searchText, setSearchText] = useState("")
   const [searchWaiting, setSearchWaiting] = useState(false)
+  const [fuseTextSearch, setFuseTextSearch] = useState(
+    new Fuse(fullShipList, fuseTextSearchOptions)
+  )
   // const { data: fullShipList } = useFullShipList()
 
   // // TODO: focus input bar via ref
-  // useEffect(() => {
-  //   const down = (e: KeyboardEvent) => {
-  //     if ((e.key === "f" && (e.metaKey || e.ctrlKey)) || e.key === "/") {
-  //       if (
-  //         (e.target instanceof HTMLElement && e.target.isContentEditable) ||
-  //         e.target instanceof HTMLInputElement ||
-  //         e.target instanceof HTMLTextAreaElement ||
-  //         e.target instanceof HTMLSelectElement
-  //       ) {
-  //         return
-  //       }
+  useEffect(() => {
+    const bindKey = false
+    if (bindKey) {
+      const down = (e: KeyboardEvent) => {
+        if ((e.key === "f" && (e.metaKey || e.ctrlKey)) || e.key === "/") {
+          if (
+            (e.target instanceof HTMLElement && e.target.isContentEditable) ||
+            e.target instanceof HTMLInputElement ||
+            e.target instanceof HTMLTextAreaElement ||
+            e.target instanceof HTMLSelectElement
+          ) {
+            return
+          }
 
-  //       e.preventDefault()
-  //       // setOpen((open) => !open)
-  //     }
-  //   }
+          e.preventDefault()
+          // setOpen((open) => !open)
+        }
+      }
 
-  //   document.addEventListener("keydown", down)
-  //   return () => document.removeEventListener("keydown", down)
-  // }, [])
+      document.addEventListener("keydown", down)
+      return () => document.removeEventListener("keydown", down)
+    }
+  }, [])
+
+  useEffect(() => {
+    // fuse.setCollection exists
+    setFuseTextSearch(new Fuse(fullShipList, fuseTextSearchOptions))
+  }, [fullShipList])
 
   const textInputHandler = useCallback(
     (e: any) => {
@@ -98,16 +119,37 @@ const AzurApiIndex = ({ fullShipList }: AzurApiIndexProps) => {
       }
 
       // generalize into lists
-      function fooGetShipBySearchText(text: string) {
+      function getShipListByTextSearch(text: string) {
         const lowerText = text.toLowerCase()
-        return fullShipList.filter((i: Ship) =>
-          i.names.en.toLowerCase().includes(lowerText)
-        )
+        const vanilla = true
+
+        if (vanilla) {
+          return fullShipList.filter((i: Ship) =>
+            i.names.en.toLowerCase().includes(lowerText)
+          )
+        } else {
+          // fuse
+          const result = fuseTextSearch.search(lowerText)
+          console.log("Fuse: ", result)
+          const unwrapResult = result.map((i) => {
+            return i.item
+          })
+          console.log("ShipArray:", unwrapResult)
+          if (unwrapResult) {
+            return unwrapResult
+          } else {
+            return []
+          }
+          // return result as any
+        }
+
+        // return []
       }
 
       function doStuff() {
         setSearchWaiting(false)
-        setShipList(fooGetShipBySearchText(txt))
+        setSearchText(txt)
+        setShipList(getShipListByTextSearch(txt))
       }
     },
     [fullShipList]
@@ -169,7 +211,7 @@ const AzurApiIndex = ({ fullShipList }: AzurApiIndexProps) => {
             >
               {shipList.length > 0
                 ? shipList.map((ship: Ship, idx) => {
-                    if (idx > 25 && isDevEnv) return null
+                    if (!ship || (idx > 25 && isDevEnv)) return null
                     return <ShipCard ship={ship} key={ship.id} />
                   })
                 : fullShipList.map((ship: Ship, idx) => {
