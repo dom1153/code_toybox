@@ -6,7 +6,7 @@ import { Label } from "@radix-ui/react-label"
 import Fuse from "fuse.js"
 import toast from "react-hot-toast"
 
-import { isDevEnv } from "@/lib/myutils"
+import { isDevEnv, searchShipList } from "@/lib/myutils"
 
 import { Card } from "../ui/card"
 import { Checkbox } from "../ui/checkbox"
@@ -30,18 +30,19 @@ let items: ItemType[] = [
     id: "hull",
     label: "Hull",
     items: [
-      {
-        id: "main",
-        label: "Main",
-      },
-      {
-        id: "vanguard",
-        label: "Vanguard",
-      },
-      {
-        id: "dd",
-        label: "DD",
-      },
+      { id: "main", label: "Main" },
+      { id: "vanguard", label: "Vanguard" },
+      { id: "dd", label: "DD" },
+      { id: "main", label: "Main" },
+      { id: "vanguard", label: "Vanguard" },
+      { id: "dd", label: "DD" },
+      { id: "cl", label: "CL" },
+      { id: "ca", label: "CA" },
+      { id: "bb", label: "BB" },
+      { id: "cv", label: "CV" },
+      { id: "ar", label: "AR" },
+      { id: "ss", label: "SS" },
+      { id: "misc-hull", label: "Misc" },
     ],
   },
 ]
@@ -124,9 +125,10 @@ const AzurApiIndex = ({ fullShipList }: AzurApiIndexProps) => {
         const vanilla = true
 
         if (vanilla) {
-          return fullShipList.filter((i: Ship) =>
-            i.names.en.toLowerCase().includes(lowerText)
-          )
+          return searchShipList(fullShipList, text)
+          // return fullShipList.filter((i: Ship) =>
+          //   i.names.en.toLowerCase().includes(lowerText)
+          // )
         } else {
           // fuse
           const result = fuseTextSearch.search(lowerText)
@@ -143,7 +145,7 @@ const AzurApiIndex = ({ fullShipList }: AzurApiIndexProps) => {
           // return result as any
         }
 
-        // return []
+        return []
       }
 
       function doStuff() {

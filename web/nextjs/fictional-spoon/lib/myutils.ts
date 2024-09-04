@@ -27,3 +27,28 @@ export function sortDefault(ships: Ship[]) {
   })
   return ships
 }
+
+export enum ShipSort {
+  default,
+}
+
+export function searchShipList(
+  ships: Ship[],
+  text: string,
+  options?: {
+    hull?: string
+    faction?: string
+    rarity?: string
+    availability?: string
+    special?: string
+    sort?: ShipSort
+  }
+) {
+  const lowerText = text.toLowerCase()
+
+  let list = ships.filter((i: Ship) =>
+    i.names.en.toLowerCase().includes(lowerText)
+  )
+
+  return sortDefault(list)
+}
