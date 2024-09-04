@@ -131,17 +131,17 @@ const AzurApiIndex = ({ fullShipList }: AzurApiIndexProps) => {
           // )
         } else {
           // fuse
-          const result = fuseTextSearch.search(lowerText)
-          console.log("Fuse: ", result)
-          const unwrapResult = result.map((i) => {
-            return i.item
-          })
-          console.log("ShipArray:", unwrapResult)
-          if (unwrapResult) {
-            return unwrapResult
-          } else {
-            return []
-          }
+          // const result = fuseTextSearch.search(lowerText)
+          // console.log("Fuse: ", result)
+          // const unwrapResult = result.map((i) => {
+          //   return i.item
+          // })
+          // console.log("ShipArray:", unwrapResult)
+          // if (unwrapResult) {
+          //   return unwrapResult
+          // } else {
+          //   return []
+          // }
           // return result as any
         }
 
@@ -187,10 +187,13 @@ const AzurApiIndex = ({ fullShipList }: AzurApiIndexProps) => {
           </div>
           {items.map((i) => (
             <div key={i.id}>
-              <h1>{i.label}</h1>
-              <div>
+              <h1 className="">{i.label}</h1>
+              <div className="flex flex-row flex-wrap gap-2">
                 {i.items.map((ii) => (
-                  <div key={ii.id} className="flex items-center space-x-2">
+                  <div
+                    key={ii.id}
+                    className="flex items-center space-x-2 rounded-md bg-gray-800 p-1"
+                  >
                     <Checkbox key={ii.id} id={ii.id} />
                     <label>{ii.label}</label>
                   </div>
