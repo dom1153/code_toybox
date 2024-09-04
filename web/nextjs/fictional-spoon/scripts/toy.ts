@@ -45,6 +45,7 @@ async function downloadImage(
 
   console.log("length", azurapi?.ships.raw.length)
 
+  // make directories
   if (!existsSync(pngdir)) {
     mkdir(pngdir, {}, (err) => {
       if (err) throw err
@@ -61,32 +62,41 @@ async function downloadImage(
     })
   }
 
+  // util: get file extension from string
   function getExt(s: string) {
     return s.split(".").pop()
   }
 
   console.log("foreach time")
-  await Promise.all(
-    azurapi.ships.map(async (s, i) => {
-      const limiter = false
-      if (limiter && i >= 3) {
-        // console.log("ignoring ", i)
-        return
-      }
-      // console.log(i)
 
-      // console.log("destination:", destination)
-      const result = await downloadImage(
-        s.thumbnail,
-        basedir,
-        `${s.id}`,
-        `${getExt(s.thumbnail)}`
+  const download = false
+  if (download) {
+    if (azurapi) {
+      await Promise.all(
+        azurapi.ships.map(async (s, i) => {
+          const limiter = false
+          if (limiter && i >= 3) {
+            // console.log("ignoring ", i)
+            return
+          }
+          // console.log(i)
+
+          // console.log("destination:", destination)
+          const result = await downloadImage(
+            s.thumbnail,
+            basedir,
+            `${s.id}`,
+            `${getExt(s.thumbnail)}`
+          )
+          return result
+        })
       )
-      return result
-    })
-  )
+    } else {
+      console.error("azurapi is undefined")
+    }
+  }
 
-  console.log("end")
+  console.log("end of function (main)")
 
   //   process.exit()
 })()

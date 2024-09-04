@@ -1,6 +1,8 @@
+import React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Ship } from "@azurapi/azurapi/build/types/ship"
+import useFitText from "use-fit-text"
 
 import { shipToUrl } from "@/lib/myutils"
 import { Card, CardContent } from "@/components/ui/card"
@@ -15,7 +17,27 @@ interface ShipCardProps {
   ship: Ship
 }
 
+interface AutoTextProps {
+  text: string
+}
+
 const ShipCard: React.FC<ShipCardProps> = ({ ship }) => {
+  // VVV optional; use truncation instead
+  const AutoText: React.FC<AutoTextProps> = ({ text }) => {
+    const { fontSize, ref } = useFitText()
+    return (
+      <div
+        ref={ref}
+        style={{ fontSize }}
+        className="h-6 flex justify-center items-center"
+      >
+        <p style={{ whiteSpace: "nowrap" }} className="">
+          {text}
+        </p>
+      </div>
+    )
+  }
+
   return (
     <>
       <div key={ship.id} className="">
@@ -25,9 +47,12 @@ const ShipCard: React.FC<ShipCardProps> = ({ ship }) => {
               {/* TODO: this needs to be a custom card class */}
               <Link href={shipToUrl(ship)}>
                 <Card className="w-40">
-                  <div className="flex justify-center py-1">
-                    <p>{ship.names.en}</p>
-                  </div>
+                  {false && (
+                    <div className="flex justify-center py-1 bg-blue-950">
+                      <p>{ship.names.en}</p>
+                    </div>
+                  )}
+                  {true && <AutoText text={ship.names.en} />}
                   <CardContent className="relative p-0">
                     {/* TODO: use wikiURL as fallback; need a way to check fs; remote routes */}
                     {/* Could also try remote, then update quality dynamically */}
@@ -37,6 +62,7 @@ const ShipCard: React.FC<ShipCardProps> = ({ ship }) => {
                     {/* Vercel images are lazy by default! 🙌 */}
                     <Image
                       src={`/thumbs/webp/${ship.id}.webp`}
+                      // src={`/thumbs/webpSQ/${ship.id}.webp`}
                       alt={ship.names.en}
                       width={192}
                       height={256}

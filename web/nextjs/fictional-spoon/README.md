@@ -6,6 +6,32 @@ The start of research and development of Azur Lane DB 2 (frontend database for t
 
 https://github.com/shadcn-ui/next-template
 
+# File structure
+
+```bash
+.
+├── app
+│   ├── api
+│   │   └── azur
+│   │       └── test
+│   └── ship
+│       └── [ship]
+├── components
+│   ├── myui
+│   │   └── index
+│   └── ui
+├── config
+├── hooks
+├── lib
+├── public
+│   └── thumbs
+│       ├── webp
+│       └── webpSQ
+├── scripts
+├── styles
+└── types
+```
+
 ## License
 
 Licensed under the [MIT license](https://github.com/shadcn/ui/blob/main/LICENSE.md).
