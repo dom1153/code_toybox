@@ -75,4 +75,4 @@ function handleError(error: string) {
   console.log("Error with azurApi: ", error)
 }
 
-// export default client
+export default client
