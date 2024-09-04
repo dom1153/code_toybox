@@ -29,7 +29,7 @@ const ShipCard: React.FC<ShipCardProps> = ({ ship }) => {
       <div
         ref={ref}
         style={{ fontSize }}
-        className="h-6 flex justify-center items-center"
+        className="flex h-6 items-center justify-center"
       >
         <p style={{ whiteSpace: "nowrap" }} className="">
           {text}
@@ -48,7 +48,7 @@ const ShipCard: React.FC<ShipCardProps> = ({ ship }) => {
               <Link href={shipToUrl(ship)}>
                 <Card className="w-40">
                   {false && (
-                    <div className="flex justify-center py-1 bg-blue-950">
+                    <div className="flex justify-center bg-blue-950 py-1">
                       <p>{ship.names.en}</p>
                     </div>
                   )}
