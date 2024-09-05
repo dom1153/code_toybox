@@ -58,11 +58,13 @@ const DockArchivesIndex = ({ fullShipList }: AzurApiIndexProps) => {
       {/* Container add padding and fill screen */}
       <section
         className={`container grid items-center gap-6 pb-8 pt-6 md:py-10 ${
-          isDevEnv && "bg-gray-900"
+          isDevEnv && "dark:bg-gray-900"
         }`}
       >
         {/* Flexbox split children into columns with gaps */}
-        <div className={`flex flex-row gap-5 ${isDevEnv && "bg-blue-900"}`}>
+        <div
+          className={`flex flex-row gap-5 ${isDevEnv && "dark:bg-blue-900"}`}
+        >
           <SortFilterPanel
             fullShipList={fullShipList}
             updateShipList={setShipList}

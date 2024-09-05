@@ -1,13 +1,12 @@
 "use client"
 
 import { useCallback, useEffect, useState } from "react"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { Ship } from "@azurapi/azurapi/build/types/ship"
-import axios from "axios"
 
 import { shipToUrl } from "@/lib/myutils"
 import { cn } from "@/lib/utils"
-import useFullShipList from "@/hooks/useShipList"
 
 import { Button } from "../../ui/button"
 import {
@@ -26,8 +25,6 @@ const CommandMenu: React.FC<CommandMenuProps> = ({ fullShipList }) => {
   const router = useRouter()
 
   const [open, setOpen] = useState(false)
-  const [shipList, setShipList] = useState([] as Ship[])
-  // const { data: fullShipList } = useFullShipList()
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -49,12 +46,6 @@ const CommandMenu: React.FC<CommandMenuProps> = ({ fullShipList }) => {
     document.addEventListener("keydown", down)
     return () => document.removeEventListener("keydown", down)
   }, [])
-
-  // useEffect(() => {
-  //   if (shipList.length <= 0 && fullShipList) {
-  //     setShipList(fullShipList)
-  //   }
-  // }, [fullShipList, shipList.length])
 
   const runCommand = useCallback((command: () => unknown) => {
     setOpen(false)
@@ -80,17 +71,24 @@ const CommandMenu: React.FC<CommandMenuProps> = ({ fullShipList }) => {
         <CommandInput placeholder="Search..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-
-          {fullShipList.map((s, i) => {
+          {fullShipList.map((ship, index) => {
             // TODO: memoize? ; performance is slow on dev
             return (
               <CommandItem
-                key={s.id}
+                key={ship.id}
                 onSelect={() => {
-                  runCommand(() => router.push(shipToUrl(s)))
+                  runCommand(() => router.push(shipToUrl(ship)))
                 }}
+                className="gap-2"
               >
-                {s.names.en} ({s.hullType})
+                <Image
+                  src={`/thumbs/webpSQ/${ship.id}.webp`}
+                  alt={ship.names.en}
+                  width={24}
+                  height={24}
+                  className="rounded-full bg-blue-950"
+                />
+                <span>{`${ship.names.en} (${ship.hullType})`}</span>
               </CommandItem>
             )
           })}

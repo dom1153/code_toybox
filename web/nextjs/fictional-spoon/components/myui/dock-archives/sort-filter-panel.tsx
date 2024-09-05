@@ -1,11 +1,11 @@
 import { useCallback, useState } from "react"
 import { Ship } from "@azurapi/azurapi/build/types/ship"
-import { Checkbox } from "@radix-ui/react-checkbox"
 import { Label } from "@radix-ui/react-label"
 
 import { isDevEnv, searchShipList } from "@/lib/myutils"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { Toggle } from "@/components/ui/toggle"
 
 // import data from "./FilterData.json"
 
@@ -95,12 +95,12 @@ const SortFilterPanel: React.FC<FilterProps> = ({
     <>
       <Card className="flex w-[400px] flex-col gap-5 p-5">
         <div className="grid w-full max-w-sm items-center gap-1.5">
-          {/* TODO: add an icon */}
+          {/* TODO: add an search icon */}
           <Label htmlFor="Search">Search</Label>
           <Input
-            type="Search"
+            type="search"
             id="Search"
-            placeholder="Search"
+            placeholder="Search..."
             onChange={textInputHandler}
           />
         </div>
@@ -109,13 +109,13 @@ const SortFilterPanel: React.FC<FilterProps> = ({
             <h1 className="">{i.label}</h1>
             <div className="flex flex-row flex-wrap gap-2">
               {i.items.map((ii) => (
-                <div
+                <Toggle
                   key={ii.id}
-                  className="flex items-center space-x-2 rounded-md bg-gray-800 p-1"
+                  variant="outline"
+                  aria-label={`Toggle ${ii.label}`}
                 >
-                  <Checkbox key={ii.id} id={ii.id} />
-                  <label>{ii.label}</label>
-                </div>
+                  <span>{ii.label}</span>
+                </Toggle>
               ))}
             </div>
           </div>
