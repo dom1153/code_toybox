@@ -1,0 +1,107 @@
+{
+  "sort": {
+    "label": "Sort",
+    "options": [
+      { "value": "id", "type": "sort", "label": "Default", "checked": "true" },
+      { "value": "name", "type": "sort", "label": "Name" },
+      { "value": "rarity", "type": "sort", "label": "Rarity" },
+      { "value": "total-stats", "type": "sort", "label": "Total Stats" },
+      {
+        "value": "construction-time",
+        "type": "sort",
+        "label": "Construction Time"
+      }
+    ]
+  },
+  "hull": {
+    "label": "Hull",
+    "options": [
+      { "value": "main", "type": "check", "label": "Main" },
+      { "value": "vanguard", "type": "check", "label": "Vanguard" },
+      { "value": "dd", "type": "check", "label": "DD" },
+      { "value": "cl", "type": "check", "label": "CL" },
+      { "value": "ca", "type": "check", "label": "CA" },
+      { "value": "bb", "type": "check", "label": "BB" },
+      { "value": "cv", "type": "check", "label": "CV" },
+      { "value": "ar", "type": "check", "label": "AR" },
+      { "value": "ss", "type": "check", "label": "SS" },
+      { "value": "misc-hull", "type": "check", "label": "Misc" }
+    ]
+  },
+  "faction": {
+    "label": "Faction",
+    "options": [
+      { "value": "eagle-union", "type": "check", "label": "Eagle Union" },
+      { "value": "royal-navy", "type": "check", "label": "Royal Navy" },
+      { "value": "sakura-empire", "type": "check", "label": "Sakura Empire" },
+      { "value": "iron-blood", "type": "check", "label": "Iron blood" },
+      { "value": "dragon-empery", "type": "check", "label": "Dragon Empery" },
+      {
+        "value": "sardegna-empire",
+        "type": "check",
+        "label": "Sardegna Empire"
+      },
+      {
+        "value": "northern-parliament",
+        "type": "check",
+        "label": "Northern Parliament"
+      },
+      { "value": "iris-libre", "type": "check", "label": "Iris Libre" },
+      {
+        "value": "vichya-dominion",
+        "type": "check",
+        "label": "Vichya Dominion"
+      },
+      { "value": "misc-faction", "type": "check", "label": "Misc" }
+    ]
+  },
+  "collab": {
+    "label": "Collab Faction",
+    "options": [
+      { "value": "bilibili", "type": "check", "label": "Bilibili" },
+      { "value": "ssss", "type": "check", "label": "SSSS" },
+      {
+        "value": "the-idolmaster",
+        "type": "check",
+        "label": "The Idolmaster"
+      },
+      { "value": "kizuna-ai", "type": "check", "label": "Kizuna AI" },
+      { "value": "neptunia", "type": "check", "label": "Neptunia" },
+      { "value": "utawarerumono", "type": "check", "label": "Utawarerumono" },
+      {
+        "value": "venus-vacation",
+        "type": "check",
+        "label": "Venus Vacation"
+      },
+      { "value": "atelier-ryza", "type": "check", "label": "Atelier Ryza" },
+      { "value": "hololive", "type": "check", "label": "Hololive" }
+    ]
+  },
+  "rarity": {
+    "label": "Rarity",
+    "options": [
+      { "value": "normal", "type": "check", "label": "Common" },
+      { "value": "rare", "type": "check", "label": "Rare" },
+      { "value": "elite", "type": "check", "label": "Elite" },
+      { "value": "super-rare", "type": "check", "label": "Super Rare" },
+      { "value": "ultra-rare", "type": "check", "label": "Ultra Rare" }
+    ]
+  },
+  "availability": {
+    "label": "Availability",
+    "options": [
+      { "value": "permanent", "type": "check", "label": "Standard" },
+      { "value": "collab", "type": "check", "label": "Collab" },
+      { "value": "priority", "type": "check", "label": "Priority Ships" },
+      { "value": "meta", "type": "check", "label": "META" }
+    ]
+  },
+  "special:": {
+    "label": "Special",
+    "options": [
+      { "value": "has-skin", "type": "check", "label": "Has Skin" },
+      { "value": "has-oath-skin", "type": "check", "label": "Has Oath Skin" },
+      { "value": "has-retrofit", "type": "check", "label": "Has Retrofit" }
+    ]
+  }
+}

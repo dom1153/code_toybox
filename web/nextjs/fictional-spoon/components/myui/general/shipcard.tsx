@@ -52,6 +52,8 @@ const ShipCard: React.FC<ShipCardProps> = ({ ship }) => {
                       <p>{ship.names.en}</p>
                     </div>
                   )}
+                  {/* ... just trucate like how the wiki does */}
+                  {/* https://azurlane.koumakan.jp/wiki/List_of_Ships_by_Image */}
                   {true && <AutoText text={ship.names.en} />}
                   <CardContent className="relative p-0">
                     {/* TODO: use wikiURL as fallback; need a way to check fs; remote routes */}

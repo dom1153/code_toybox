@@ -9,14 +9,14 @@ import { shipToUrl } from "@/lib/myutils"
 import { cn } from "@/lib/utils"
 import useFullShipList from "@/hooks/useShipList"
 
-import { Button } from "../ui/button"
+import { Button } from "../../ui/button"
 import {
   CommandDialog,
   CommandEmpty,
   CommandInput,
   CommandItem,
   CommandList,
-} from "../ui/command"
+} from "../../ui/command"
 
 interface CommandMenuProps {
   fullShipList: Ship[]

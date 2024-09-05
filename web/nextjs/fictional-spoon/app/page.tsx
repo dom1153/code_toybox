@@ -1,5 +1,5 @@
 import { sortDefault } from "@/lib/myutils"
-import AzurApiIndex from "@/components/myui/azurapi-index"
+import DockArchives from "@/components/myui/dock-archives-index"
 
 export default async function IndexPage() {
   // TODO: this json is about 5mb and should be pruned
@@ -10,12 +10,8 @@ export default async function IndexPage() {
     .then((responseJson) => sortDefault(responseJson))
 
   return (
-    <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
-      <div className="flex flex-col items-start gap-2">
-        <section className="container">
-          <AzurApiIndex fullShipList={data} />
-        </section>
-      </div>
-    </section>
+    <>
+      <DockArchives fullShipList={data} />
+    </>
   )
 }
