@@ -4,9 +4,12 @@ import { useEffect, useState } from "react"
 import { Ship } from "@azurapi/azurapi/build/types/ship"
 
 import { isDevEnv } from "@/lib/myutils"
+import { useMediaQuery } from "@/hooks/use-media-query"
 
+import { ScrollArea } from "../ui/scroll-area"
 import CardGallery from "./dock-archives/card-gallery"
 import SortFilterPanel from "./dock-archives/sort-filter-panel"
+import SortFilterBar from "./dock-archives/sort-filter-sm-bar"
 
 interface AzurApiIndexProps {
   fullShipList: Ship[]
@@ -27,6 +30,8 @@ const fuseTextSearchOptions = {
 const DockArchivesIndex = ({ fullShipList }: AzurApiIndexProps) => {
   // TOOD is shiplist not stored between pages? is it possible to change that?
   const [shipList, setShipList] = useState([] as Ship[])
+  // https://tailwindcss.com/docs/responsive-design ; 640 768 1024 1280
+  const isDesktop = useMediaQuery("(min-width: 1024px)")
 
   // // TODO: focus input bar via ref
   useEffect(() => {
@@ -61,18 +66,28 @@ const DockArchivesIndex = ({ fullShipList }: AzurApiIndexProps) => {
           isDevEnv && "dark:bg-gray-900"
         }`}
       >
+        {!isDesktop && (
+          <SortFilterBar
+            fullShipList={fullShipList}
+            updateShipList={setShipList}
+          />
+        )}
         {/* Flexbox split children into columns with gaps */}
         <div
           className={`flex flex-row gap-5 ${isDevEnv && "dark:bg-blue-900"}`}
         >
-          <SortFilterPanel
-            fullShipList={fullShipList}
-            updateShipList={setShipList}
-          />
+          {isDesktop && (
+            <SortFilterPanel
+              fullShipList={fullShipList}
+              updateShipList={setShipList}
+            />
+          )}
           {/* fullship list should set shiplist instead null array logic here VVV */}
-          <CardGallery
-            shipList={shipList.length > 0 ? shipList : fullShipList}
-          />
+          <ScrollArea className="w-full">
+            <CardGallery
+              shipList={shipList.length > 0 ? shipList : fullShipList}
+            />
+          </ScrollArea>
         </div>
       </section>
     </>

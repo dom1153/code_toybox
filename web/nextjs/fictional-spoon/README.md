@@ -1,6 +1,6 @@
 # Description
 
-The start of research and development of Azur Lane DB 2 (frontend database for the azur lane wiki)
+The start of research and development of Azur Lane DB (frontend database for the azur lane wiki)
 
 # Template base
 
