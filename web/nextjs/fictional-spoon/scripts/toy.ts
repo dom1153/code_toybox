@@ -1,4 +1,13 @@
-import { existsSync, mkdir, writeFile } from "fs"
+import {
+  existsSync,
+  fstat,
+  mkdir,
+  readFileSync,
+  statSync,
+  writeFile,
+  writeFileSync,
+} from "fs"
+import { Ship } from "@azurapi/azurapi/build/types/ship"
 import axios from "axios"
 import sharp from "sharp"
 
@@ -31,6 +40,13 @@ async function downloadImage(
       .toFile(rhsSq)
     // 192 × 256
   })
+}
+
+function getFileSize(filename: string) {
+  const stats = statSync(filename)
+  var fileSizeInBytes = stats.size
+  const fileSizeInMB = fileSizeInBytes / (1024 * 1024)
+  return fileSizeInMB
 }
 
 ;(async function main() {
@@ -72,6 +88,8 @@ async function downloadImage(
   const download = false
   if (download) {
     if (azurapi) {
+      console.log("doing download")
+      // TODO VVV make this sync...
       await Promise.all(
         azurapi.ships.map(async (s, i) => {
           const limiter = false
@@ -94,9 +112,66 @@ async function downloadImage(
     } else {
       console.error("azurapi is undefined")
     }
+  } else {
+    console.log("Skipping download")
+  }
+
+  const jsonTrim = true
+  if (jsonTrim) {
+    console.log("doing json trim")
+    const starterFile = "./tmp/ships.json"
+    const outputFile = "./tmp/ships-min.json"
+    const outputFileDetails = "./tmp/ships-details.json"
+    const data = readFileSync(starterFile, {}) as any
+    const ships = JSON.parse(data) as Ship[]
+    const size = getFileSize(starterFile)
+    // console.log(ships[0])
+    // console.log(size.toFixed(2), "MB")
+
+    console.log(`trimming ${starterFile}...`)
+    const newShips = ships.map((s) => {
+      return {
+        wikiUrl: s.wikiUrl,
+        id: s.id,
+        names: { en: s.names.en },
+        class: s.class,
+        nationality: s.nationality,
+        hullType: s.hullType,
+        rarity: s.rarity,
+      }
+    })
+    // we 'could' write a json for each ship
+    const newShipDetails = ships.map((s) => {
+      return {
+        wikiUrl: s.wikiUrl,
+        id: s.id,
+        names: { en: s.names.en },
+        class: s.class,
+        nationality: s.nationality,
+        hullType: s.hullType,
+        rarity: s.rarity,
+        // stats: s.stats, // (0.62)
+        // skills: s.skills, // (0.67)
+        // construction: s.construction,
+        // obtainedFrom: s.obtainedFrom,
+        // misc: s.misc, // (0.18)
+        skins: s.skins, // (1.42)
+        // gallery: s.gallery, // (0.23)
+      }
+    })
+
+    writeFileSync(outputFile, JSON.stringify(newShips), "utf8")
+    const newSize = getFileSize(outputFile)
+    console.log(`wrote file file ${outputFile} (${newSize} MB)`)
+
+    writeFileSync(outputFileDetails, JSON.stringify(newShipDetails), "utf8")
+    const newSizeDetails = getFileSize(outputFileDetails)
+    console.log(`wrote file file ${outputFileDetails} (${newSizeDetails} MB)`)
+  } else {
+    console.log("skipping json trim")
   }
 
   console.log("end of function (main)")
 
-  //   process.exit()
+  process.exit()
 })()

@@ -112,6 +112,7 @@ const SortFilterBar: React.FC<FilterProps> = ({
       <SortFilterPanel
         fullShipList={fullShipList}
         updateShipList={updateShipList}
+        className={"rounded-none border-0"}
       />
     </>
   )

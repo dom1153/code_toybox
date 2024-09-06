@@ -1,6 +1,8 @@
 import { sortDefault } from "@/lib/myutils"
 import DockArchives from "@/components/myui/dock-archives-index"
 
+// https://github.com/microsoft/TypeScript/issues/48364
+
 export default async function IndexPage() {
   // TODO: this json is about 5mb and should be pruned
   const data = await fetch(
@@ -11,7 +13,7 @@ export default async function IndexPage() {
 
   return (
     <>
-      <DockArchives fullShipList={data} />
+      <DockArchives fullShipList={sortDefault(data as any)} />
     </>
   )
 }
