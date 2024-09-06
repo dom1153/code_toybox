@@ -42,7 +42,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   // theme provider does something similar, probably
   // https://blog.logrocket.com/guide-state-management-next-js/
   const data = await fetch(
-    "https://raw.githubusercontent.com/AzurAPI/azurapi-js-setup/master/ships.json"
+    "https://raw.githubusercontent.com/dom1153/code_toybox/main/web/nextjs/archive/ships-details.json"
   )
     .then((res) => res.json())
     .then((responseJson) => sortDefault(responseJson))
