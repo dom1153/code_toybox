@@ -118,7 +118,7 @@ const SortFilterBar: React.FC<FilterProps> = ({
   )
 
   return (
-    <Card className="sticky top-24 z-50 -mx-2 flex gap-2 p-2">
+    <Card className="sticky top-24 z-50 -mx-2 flex gap-2 bg-blue-900 p-2 sm:bg-red-900 md:hidden md:bg-purple-900">
       {/* ^^^ navbar h-16 + padding ; the right height will be tricky */}
       {/* VVV Filter sheet */}
       <Sheet>
@@ -148,7 +148,7 @@ const SortFilterBar: React.FC<FilterProps> = ({
       </Card>
 
       {/* Sort Component */}
-      <Card className="flex">
+      <Card className=" bg-yellow-900 sm:flex">
         <Button variant="ghost">
           <ArrowDownAZ />
         </Button>

@@ -31,7 +31,7 @@ const DockArchivesIndex = ({ fullShipList }: AzurApiIndexProps) => {
   // TOOD is shiplist not stored between pages? is it possible to change that?
   const [shipList, setShipList] = useState([] as Ship[])
   // https://tailwindcss.com/docs/responsive-design ; 640 768 1024 1280
-  const isDesktop = useMediaQuery("(min-width: 1024px)")
+  // const isDesktop = useMediaQuery("(min-width: 1024px)")
 
   // // TODO: focus input bar via ref
   useEffect(() => {
@@ -66,22 +66,19 @@ const DockArchivesIndex = ({ fullShipList }: AzurApiIndexProps) => {
           isDevEnv && "dark:bg-gray-900"
         }`}
       >
-        {!isDesktop && (
-          <SortFilterBar
-            fullShipList={fullShipList}
-            updateShipList={setShipList}
-          />
-        )}
+        <SortFilterBar
+          fullShipList={fullShipList}
+          updateShipList={setShipList}
+        />
+
         {/* Flexbox split children into columns with gaps */}
         <div
           className={`flex flex-row gap-5 ${isDevEnv && "dark:bg-blue-900"}`}
         >
-          {isDesktop && (
-            <SortFilterPanel
-              fullShipList={fullShipList}
-              updateShipList={setShipList}
-            />
-          )}
+          <SortFilterPanel
+            fullShipList={fullShipList}
+            updateShipList={setShipList}
+          />
           {/* fullship list should set shiplist instead null array logic here VVV */}
           <ScrollArea className="w-full">
             <CardGallery

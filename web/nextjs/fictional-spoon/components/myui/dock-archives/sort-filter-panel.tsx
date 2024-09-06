@@ -98,7 +98,7 @@ const SortFilterPanel: React.FC<FilterProps> = ({
   // consider: overflow (single page app style; wayyyyy out of my league)
   return (
     <>
-      <Card className="flex w-[400px] flex-col gap-2 pt-4">
+      <Card className="hidden w-[400px] flex-col gap-2 pt-4 md:flex">
         <CardContent>
           <div className="flex flex-col gap-4">
             <div className="grid w-full max-w-sm items-center gap-1.5">
@@ -135,13 +135,13 @@ const SortFilterPanel: React.FC<FilterProps> = ({
         </CardContent>
 
         <CardFooter>
-          <div className="flex flex-col grow">
+          <div className="flex grow flex-col">
             <div className="mb-2 flex justify-center">
               <p className="">
                 {"x"} / {"y"} ships displayed
               </p>
             </div>
-            <div className="flex gap-2 grow">
+            <div className="flex grow gap-2">
               <Button variant="outline" className="grow">
                 Clear {"z"} filter(s)
               </Button>
