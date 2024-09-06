@@ -6,7 +6,6 @@ import { Info } from "lucide-react"
 import { isDevEnv, searchShipList } from "@/lib/myutils"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { Toggle } from "@/components/ui/toggle"
 
 import { InputCustom } from "../general/input-custom"
@@ -53,11 +52,13 @@ const searchDelay = isDevEnv ? 0 : 100
 export interface FilterProps {
   fullShipList: Ship[]
   updateShipList: any
+  className?: string | null
 }
 
 const SortFilterPanel: React.FC<FilterProps> = ({
   fullShipList,
   updateShipList,
+  className,
 }) => {
   const [searchText, setSearchText] = useState("")
   const [searchWaiting, setSearchWaiting] = useState(false)
@@ -98,7 +99,7 @@ const SortFilterPanel: React.FC<FilterProps> = ({
   // consider: overflow (single page app style; wayyyyy out of my league)
   return (
     <>
-      <Card className="hidden w-[400px] flex-col gap-2 pt-4 md:flex">
+      <Card className={`w-[400px] pt-4 ${className}`}>
         <CardContent>
           <div className="flex flex-col gap-4">
             <div className="grid w-full max-w-sm items-center gap-1.5">

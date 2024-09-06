@@ -6,6 +6,16 @@
 
 interface UnusedProps {}
 
+const fuseTextSearchOptions = {
+  keys: ["names.en"],
+  sortFn: (a: any, b: any) => {
+    if (a.id < b.id) return -1;
+    if (a.id > b.id) return 1;
+    return 0;
+  },
+  includeScore: true,
+};
+
 const Unused: React.FC<UnusedProps> = ({}) => {
   // const [fuseTextSearch, setFuseTextSearch] = useState(
   //   new Fuse(fullShipList, fuseTextSearchOptions)

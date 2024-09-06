@@ -8,6 +8,7 @@ import {
   Search,
 } from "lucide-react"
 
+import { isDevEnv } from "@/lib/myutils"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -95,11 +96,9 @@ const SortFilterBar: React.FC<FilterProps> = ({
   )
 
   const CustomDialogTrigger = (
-    <>
-      <Button variant="outline" className="flex items-center gap-2">
-        <Filter /> Filter
-      </Button>
-    </>
+    <Button variant="outline" className="flex items-center gap-2 bg-background">
+      <Filter /> Filter
+    </Button>
   )
 
   const CustomDialogContent = (
@@ -118,22 +117,26 @@ const SortFilterBar: React.FC<FilterProps> = ({
   )
 
   return (
-    <Card className="sticky top-24 z-50 -mx-2 flex gap-2 bg-blue-900 p-2 sm:bg-red-900 md:hidden md:bg-purple-900">
+    <Card
+      className={`sticky top-24 z-50 -mx-2 flex gap-2 p-2 ${
+        isDevEnv && "sm:bg-red-900 md:hidden md:bg-purple-900"
+      }`}
+    >
       {/* ^^^ navbar h-16 + padding ; the right height will be tricky */}
       {/* VVV Filter sheet */}
       <Sheet>
-        <SheetTrigger>{CustomDialogTrigger}</SheetTrigger>
+        <SheetTrigger asChild>{CustomDialogTrigger}</SheetTrigger>
 
         <SheetContent
           side="left"
-          className="w-[600px] sm:w-[600px] sm:max-w-sm md:max-w-md"
+          className="w-max-[600px] sm:w-[600px] sm:max-w-sm md:max-w-md min-w-[450px]"
         >
           {CustomDialogContent}
         </SheetContent>
       </Sheet>
 
       {/* Search Box */}
-      <Card className="flex grow items-center justify-center gap-2 px-2 ">
+      <Card className="flex grow items-center justify-center gap-2 px-2">
         <Search />
         {/* VVV shadcn input but no border no rounding */}
         <InputCustom
@@ -148,7 +151,7 @@ const SortFilterBar: React.FC<FilterProps> = ({
       </Card>
 
       {/* Sort Component */}
-      <Card className=" bg-yellow-900 sm:flex">
+      <Card className="hidden sm:flex">
         <Button variant="ghost">
           <ArrowDownAZ />
         </Button>
