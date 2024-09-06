@@ -64,7 +64,7 @@ const DockArchivesIndex = ({ fullShipList }: AzurApiIndexProps) => {
         <div
           className={`flex flex-row gap-5 ${isDevEnv && "dark:bg-blue-900"}`}
         >
-          <div className={`hidden md:block ${isDevEnv && "bg-cyan-900"}`}>
+          <div className={`hidden lg:block ${isDevEnv && "bg-cyan-900"}`}>
             <SortFilterPanel
               fullShipList={fullShipList}
               updateShipList={setShipList}
