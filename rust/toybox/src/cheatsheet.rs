@@ -44,10 +44,19 @@ pub fn reference() {
 
     // loops (python redundant-less parens)
     while X == 5 {} // while x is true
-    loop {} // forever
 
-    // data structures (stack; vectors)
-    // 'vec'
+    if false {
+        // ^^^ if false here to avoid 'unreachable' code
+        loop {} // forever loop :)
+    }
+
+    // data structures (stack; vectors, queue, hashmap)
+    // std::collections ; Vec and HashMap
+    let mut vec = Vec::new();
+    vec.push(1);
+    vec.push(2);
+    vec.len();
+    // see foobar::blah for examples from the rust book!
 
     // more todo: how to debug rust
 }
