@@ -1,4 +1,5 @@
 mod cheatsheet;
+mod foobar;
 mod guessing_game;
 mod impatient;
 mod rust_by_example;
@@ -14,11 +15,15 @@ fn main() {
         guessing_game::play();
     }
 
-    if true {
+    if false {
         rust_by_example::print();
     }
 
     if false {
         cheatsheet::reference()
+    }
+
+    if true {
+        foobar::foobar();
     }
 }

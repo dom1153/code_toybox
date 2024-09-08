@@ -2,8 +2,9 @@
 
 // VVV 'attribute' to disable 'dead_code' lint
 #[allow(dead_code)]
+#[allow(unused_variables)]
 pub fn reference() {
-    println!("console log");
+    println!("at cheatsheet::reference()");
 
     // variables and types (arrays?) - unmutable by default
 
@@ -27,6 +28,8 @@ pub fn reference() {
     const X2: f32 = 3.14;
     let _x3: i32 = 0; // standard stack allocated
     let mut _x4: i32 = 1; // mutuable goes before name
+    let array: [i32; 3] = [1, 2, 3]; // arrays are fixed sized; stack-allocated
+    let boxed_array: Box<[i32]> = Box::new([1, 2, 3]); // heap-allocated, coerced to a slice
 
     trait T {}
 
@@ -44,6 +47,7 @@ pub fn reference() {
     loop {} // forever
 
     // data structures (stack; vectors)
+    // 'vec'
 
     // more todo: how to debug rust
 }

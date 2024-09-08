@@ -2,6 +2,7 @@ use rand::Rng;
 use std::io;
 
 pub fn play() {
+    println!("At guessing_game::play()");
     println!("Guess the number!");
 
     let secret_number = rand::thread_rng().gen_range(1..=100);
