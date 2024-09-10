@@ -2,17 +2,18 @@ import { Ship } from "@azurapi/azurapi/build/types/ship"
 
 import { isDevEnv } from "@/lib/myutils"
 import { Card } from "@/components/ui/card"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 import ShipCard from "../general/shipcard"
 
-interface CardGalleryProps {
+interface ShipCardGalleryProps {
   shipList: Ship[]
 }
 
-const CardGallery: React.FC<CardGalleryProps> = ({ shipList }) => {
+const ShipCardGallery: React.FC<ShipCardGalleryProps> = ({ shipList }) => {
   return (
     <>
-      <Card className="p-2">
+      <Card className="flex-1 overflow-hidden px-2 py-4">
         {/* Chakra SimpleGrid suggests auto-fit with minmax */}
         {/* FYI: fixed ShipCard (e.g. w-40) with breaks card gallery, so leave it dynamic*/}
         {/* Variable gaps?, fixed card size minmax(128px, 128px) */}
@@ -40,4 +41,4 @@ const CardGallery: React.FC<CardGalleryProps> = ({ shipList }) => {
   )
 }
 
-export default CardGallery
+export default ShipCardGallery

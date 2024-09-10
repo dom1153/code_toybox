@@ -5,8 +5,7 @@ import { Ship } from "@azurapi/azurapi/build/types/ship"
 
 import { isDevEnv } from "@/lib/myutils"
 
-import { ScrollArea } from "../ui/scroll-area"
-import CardGallery from "./dock-archives/card-gallery"
+import ShipCardGallery from "./dock-archives/shipcard-gallery"
 import SortFilterBar from "./dock-archives/sort-filter-md-bar"
 import SortFilterPanel from "./dock-archives/sort-filter-panel"
 
@@ -51,7 +50,7 @@ const DockArchivesIndex = ({ fullShipList }: AzurApiIndexProps) => {
     <>
       {/* Container add padding and fill screen */}
       <section
-        className={`container grid items-center gap-6 pb-8 pt-6 md:py-10 ${
+        className={`container flex flex-col items-center gap-6 pb-8 pt-6 md:py-10 ${
           isDevEnv && "dark:bg-gray-900"
         }`}
       >
@@ -59,9 +58,12 @@ const DockArchivesIndex = ({ fullShipList }: AzurApiIndexProps) => {
           fullShipList={fullShipList}
           updateShipList={setShipList}
         />
-        {/* Flexbox split children into columns with gaps */}
+
+        {/* Flexbox split children into columns with gaps (desktop view) */}
         <div
-          className={`flex flex-row gap-5 ${isDevEnv && "dark:bg-blue-900"}`}
+          className={`flex w-full grow flex-row gap-5 ${
+            isDevEnv && "dark:bg-blue-900"
+          }`}
         >
           <div className={`hidden lg:block ${isDevEnv && "bg-cyan-900"}`}>
             <SortFilterPanel
@@ -72,11 +74,9 @@ const DockArchivesIndex = ({ fullShipList }: AzurApiIndexProps) => {
           </div>
 
           {/* fullship list should set shiplist instead null array logic here VVV */}
-          <ScrollArea className="w-full">
-            <CardGallery
-              shipList={shipList.length > 0 ? shipList : fullShipList}
-            />
-          </ScrollArea>
+          <ShipCardGallery
+            shipList={shipList.length > 0 ? shipList : fullShipList}
+          />
         </div>
       </section>
     </>

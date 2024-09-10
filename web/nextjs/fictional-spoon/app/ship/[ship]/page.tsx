@@ -17,7 +17,7 @@ export default async function Page({ params }: { params: { ship: string } }) {
   // yeah this is gonna be terrible for performance
   const data = await fetch(
     "https://raw.githubusercontent.com/dom1153/code_toybox/main/web/nextjs/archive/ships-details.json"
-  ).then((res)imple res.json())
+  ).then((res) => res.json())
 
   const ship = getShipByUrl(data, params.ship)
 

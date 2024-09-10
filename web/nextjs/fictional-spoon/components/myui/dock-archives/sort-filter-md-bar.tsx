@@ -119,7 +119,7 @@ const SortFilterBar: React.FC<FilterProps> = ({
 
   return (
     <Card
-      className={`sticky top-24 z-50 -mx-2 flex gap-2 p-2 ${
+      className={`sticky top-24 z-50 -mx-2 flex w-full gap-2 p-2 ${
         isDevEnv && "bg-blue-900 sm:bg-red-900"
       } lg:hidden ${isDevEnv && "md:bg-purple-900"}`}
     >

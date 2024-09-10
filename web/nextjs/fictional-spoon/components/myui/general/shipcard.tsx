@@ -40,7 +40,7 @@ const ShipCard: React.FC<ShipCardProps> = ({ ship }) => {
 
   const ShipCardJsx = (
     <Link href={shipToUrl(ship)}>
-      <Card className="">
+      <Card>
         {false && (
           <div className="flex justify-center bg-blue-950 py-1">
             <p>{ship.names.en}</p>
@@ -48,7 +48,10 @@ const ShipCard: React.FC<ShipCardProps> = ({ ship }) => {
         )}
         {/* ... just trucate like how the wiki does */}
         {/* https://azurlane.koumakan.jp/wiki/List_of_Ships_by_Image */}
-        {true && <AutoText text={ship.names.en} />}
+        {/* {true && <AutoText text={ship.names.en} />} */}
+        <p className="overflow-hidden text-ellipsis text-nowrap p-1 text-center text-xs">
+          {ship.names.en}
+        </p>
         <CardContent className="relative p-0">
           {/* TODO: use wikiURL as fallback; need a way to check fs; remote routes */}
           {/* Could also try remote, then update quality dynamically */}

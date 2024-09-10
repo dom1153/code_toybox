@@ -59,9 +59,9 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         >
           <Toaster />
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="relative flex min-h-screen flex-col">
+            <div className="relative flex h-screen max-h-screen flex-col">
               <SiteHeader fullShipList={sortDefault(data as any)} />
-              <div className="flex-1">{children}</div>
+              <div className="flex flex-1">{children}</div>
             </div>
             <TailwindIndicator />
           </ThemeProvider>
