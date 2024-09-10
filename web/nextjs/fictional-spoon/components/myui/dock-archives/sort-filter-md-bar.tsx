@@ -1,30 +1,8 @@
-import { useState } from "react"
-import {
-  ArrowDownAZ,
-  Check,
-  ChevronDown,
-  CircleX,
-  Filter,
-  Search,
-} from "lucide-react"
+import { Filter } from "lucide-react"
 
 import { isDevEnv } from "@/lib/myutils"
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
 import {
   Sheet,
   SheetContent,
@@ -33,68 +11,13 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 
-import { InputCustom } from "../general/input-custom"
-import FilterData from "./FilterData.json"
+import SearchBoxFilter from "./search-box-filter"
 import SortFilterPanel, { FilterProps } from "./sort-filter-panel"
 
 const SortFilterBar: React.FC<FilterProps> = ({
   fullShipList,
   updateShipList,
 }) => {
-  const [openCombo, setOpenCombo] = useState(false)
-  const [valueCombo, setValueCombo] = useState("")
-
-  const CustomComboBox = (
-    <Popover open={openCombo} onOpenChange={setOpenCombo}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="ghost"
-          role="combobox"
-          aria-expanded={openCombo}
-          className="w-[200px] justify-between"
-        >
-          {valueCombo
-            ? FilterData.sort.options.find(
-                (sortLabel) => sortLabel.value === valueCombo
-              )?.label
-            : "Default"}
-          <ChevronDown className="ml-2 size-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-
-      <PopoverContent className="w-[200px] p-0">
-        <Command>
-          <CommandInput placeholder="Search framework..." />
-          <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
-            <CommandGroup>
-              {FilterData.sort.options.map((sort) => (
-                <CommandItem
-                  key={sort.value}
-                  value={sort.value}
-                  onSelect={(currentValue) => {
-                    setValueCombo(
-                      currentValue === valueCombo ? "" : currentValue
-                    )
-                    setOpenCombo(false)
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 size-4",
-                      valueCombo === sort.value ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                  {sort.label}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
-  )
-
   const CustomDialogTrigger = (
     <Button variant="outline" className="flex items-center gap-2 bg-background">
       <Filter /> Filter
@@ -136,28 +59,7 @@ const SortFilterBar: React.FC<FilterProps> = ({
         </SheetContent>
       </Sheet>
 
-      {/* Search Box */}
-      <Card className="flex grow items-center justify-center gap-2 px-2">
-        <Search />
-        {/* VVV shadcn input but no border no rounding */}
-        <InputCustom
-          variant="ghost"
-          className="grow"
-          type="search"
-          id="Search"
-          placeholder="Search..."
-        />
-
-        <CircleX />
-      </Card>
-
-      {/* Sort Component */}
-      <Card className="hidden sm:flex">
-        <Button variant="ghost">
-          <ArrowDownAZ />
-        </Button>
-        {CustomComboBox}
-      </Card>
+      <SearchBoxFilter />
     </Card>
   )
 }

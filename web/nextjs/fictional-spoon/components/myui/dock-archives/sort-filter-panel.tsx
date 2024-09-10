@@ -9,6 +9,8 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Toggle } from "@/components/ui/toggle"
 
 import { InputCustom } from "../general/input-custom"
+import FilterData from "./FilterData.json"
+import SearchBoxFilter from "./search-box-filter"
 
 // import data from "./FilterData.json"
 
@@ -96,25 +98,57 @@ const SortFilterPanel: React.FC<FilterProps> = ({
     [fullShipList, updateShipList]
   )
 
+  const FilterButtons = (
+    <>
+      {[
+        FilterData.hull,
+        FilterData.faction,
+        FilterData.collab,
+        FilterData.rarity,
+        FilterData.availability,
+        FilterData.special,
+      ].map((section) => (
+        <>
+          <h1 className="text-lg font-bold mt-4">{section.label}</h1>
+          <div className="flex flex-row flex-wrap gap-1">
+            {section.options.map((i) => (
+              <Toggle
+                key={i.value}
+                variant="outline"
+                aria-label={`Toggle ${i.label}`}
+              >
+                <span>{i.label}</span>
+              </Toggle>
+            ))}
+          </div>
+        </>
+      ))}
+    </>
+  )
+
   // consider: overflow (single page app style; wayyyyy out of my league)
   return (
     <>
       <Card className={`w-[400px] pt-4 ${className}`}>
         <CardContent>
-          <div className="flex flex-col gap-4">
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              {/* TODO: add an search icon */}
-              <Label htmlFor="Search">Search</Label>
-              <InputCustom
-                variant="outline"
-                type="search"
-                id="Search"
-                placeholder="Search..."
-                onChange={textInputHandler}
-              />
-            </div>
+          <div className="flex flex-col gap-2">
+            {false && (
+              <div className="grid w-full max-w-sm items-center gap-1.5">
+                {/* TODO: add an search icon */}
+                <Label htmlFor="Search">Search</Label>
+                <InputCustom
+                  variant="outline"
+                  type="search"
+                  id="Search"
+                  placeholder="Search..."
+                  onChange={textInputHandler}
+                />
+              </div>
+            )}
+            <SearchBoxFilter filterComboLeftAlign />
 
-            {items.map((i) => (
+            {FilterButtons}
+            {/* {FilterData.hull.options.map((i) => (
               <div key={i.id}>
                 <h1 className="">{i.label}</h1>
                 <div className="flex flex-row flex-wrap gap-2">
@@ -129,7 +163,7 @@ const SortFilterPanel: React.FC<FilterProps> = ({
                   ))}
                 </div>
               </div>
-            ))}
+            ))} */}
             {false && isDevEnv && ButtonOverflowTest}
             {false && isDevEnv && <p>{lorem}</p>}
           </div>

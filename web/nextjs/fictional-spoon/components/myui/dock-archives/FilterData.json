@@ -96,7 +96,7 @@
       { "value": "meta", "type": "check", "label": "META" }
     ]
   },
-  "special:": {
+  "special": {
     "label": "Special",
     "options": [
       { "value": "has-skin", "type": "check", "label": "Has Skin" },
