@@ -32,6 +32,11 @@ export default async function Page({ params }: { params: { ship: string } }) {
                 <CardDescription>{ship?.nationality}</CardDescription>
               </CardHeader>
               <CardContent>
+                {/* TODO: resizable pange for ship image */}
+                {/* TODO ship details + ship gallery experimentation */}
+                {/* Consider a few experimental views (gallery embed; gallery top; left align) */}
+                {/* Single staboard with collapsable */}
+                {/* Experiment with tabs etc */}
                 <div className="w-96">
                   {/* <img src={ship.skins[0].image} alt="" /> */}
                   {/* VVV what's the point of width and height if they're ignored... */}
