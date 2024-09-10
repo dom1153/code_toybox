@@ -12,7 +12,8 @@
         "dsznajder.es7-react-js-snippets",
         "esbenp.prettier-vscode",
         "alefragnani.Bookmarks",
-        "assisrMatheus.sidebar-markdown-notes"
+        "assisrMatheus.sidebar-markdown-notes",
+        "eamodio.gitlens"
       ]
     }
   }
