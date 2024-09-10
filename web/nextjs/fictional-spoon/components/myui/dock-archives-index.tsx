@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import { Ship } from "@azurapi/azurapi/build/types/ship"
 
 import { isDevEnv } from "@/lib/myutils"
-import { useMediaQuery } from "@/hooks/use-media-query"
 
 import { ScrollArea } from "../ui/scroll-area"
 import CardGallery from "./dock-archives/card-gallery"

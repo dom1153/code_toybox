@@ -40,7 +40,7 @@ const ShipCard: React.FC<ShipCardProps> = ({ ship }) => {
 
   const ShipCardJsx = (
     <Link href={shipToUrl(ship)}>
-      <Card className="w-40">
+      <Card className="">
         {false && (
           <div className="flex justify-center bg-blue-950 py-1">
             <p>{ship.names.en}</p>

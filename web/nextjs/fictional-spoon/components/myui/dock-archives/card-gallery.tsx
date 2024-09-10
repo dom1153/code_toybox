@@ -12,13 +12,17 @@ interface CardGalleryProps {
 const CardGallery: React.FC<CardGalleryProps> = ({ shipList }) => {
   return (
     <>
-      <Card className=" grow p-5 px-1">
-        {/* grid based on AL wiki showing ship drops from event... */}
+      <Card className="p-2">
+        {/* Chakra SimpleGrid suggests auto-fit with minmax */}
+        {/* FYI: fixed ShipCard (e.g. w-40) with breaks card gallery, so leave it dynamic*/}
+        {/* Variable gaps?, fixed card size minmax(128px, 128px) */}
+        {/* Variable cardSize, fixed gaps minmax(128px, 1fr) */}
+        {/* Grid gap and any padding will determine flucatation between sizes */}
         {true && (
           <div
-            className="grid justify-evenly gap-y-5"
+            className="grid justify-evenly gap-x-2 gap-y-4"
             style={{
-              gridTemplateColumns: "repeat(auto-fill, 162px)",
+              gridTemplateColumns: "repeat(auto-fit, minmax(110px, 110px))",
             }}
           >
             {shipList.length > 0 &&
@@ -26,7 +30,7 @@ const CardGallery: React.FC<CardGalleryProps> = ({ shipList }) => {
                 const limitShips = true
 
                 if (!ship) return null
-                if (limitShips && idx > 25 && isDevEnv) return null
+                if (limitShips && idx > 50 && isDevEnv) return null
                 return <ShipCard ship={ship} key={ship.id} />
               })}
           </div>
