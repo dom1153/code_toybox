@@ -5,7 +5,7 @@ import { Ship } from "@azurapi/azurapi/build/types/ship"
 
 import { isDevEnv } from "@/lib/myutils"
 
-import ShipCardGallery from "./dock-archives/shipcard-gallery"
+import ShipCardGallery from "./dock-archives/ship-card-gallery"
 import SortFilterBar from "./dock-archives/sort-filter-md-bar"
 import SortFilterPanel from "./dock-archives/sort-filter-panel"
 

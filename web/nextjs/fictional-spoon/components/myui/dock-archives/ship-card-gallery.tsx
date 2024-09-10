@@ -3,7 +3,7 @@ import { Ship } from "@azurapi/azurapi/build/types/ship"
 import { isDevEnv } from "@/lib/myutils"
 import { Card } from "@/components/ui/card"
 
-import ShipCard from "../general/shipcard"
+import ShipCard from "../general/ship-card"
 
 interface ShipCardGalleryProps {
   shipList: Ship[]
