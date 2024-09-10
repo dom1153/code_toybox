@@ -102,8 +102,8 @@ const SearchBoxFilter: React.FC<SearchBoxFilterProps> = ({
         <CircleX />
       </Card>
 
-      <div className="hidden sm:flex items-center gap-2">
-        <h1 className="hidden lg:inline font-bold text-lg">Sort</h1>
+      <div className="hidden items-center gap-2 sm:flex">
+        <h1 className="hidden text-lg font-bold lg:inline">Sort</h1>
 
         {/* Sort Component */}
         <Card className="flex">

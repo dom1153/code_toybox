@@ -109,7 +109,7 @@ const SortFilterPanel: React.FC<FilterProps> = ({
         FilterData.special,
       ].map((section) => (
         <>
-          <h1 className="text-lg font-bold mt-4">{section.label}</h1>
+          <h1 className="mt-4 text-lg font-bold">{section.label}</h1>
           <div className="flex flex-row flex-wrap gap-1">
             {section.options.map((i) => (
               <Toggle

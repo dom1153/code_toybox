@@ -21,7 +21,7 @@ const ShipCardGallery: React.FC<ShipCardGalleryProps> = ({ shipList }) => {
         {/* Grid gap and any padding will determine flucatation between sizes */}
         {true && (
           <div
-            className="grid justify-evenly gap-x-2 gap-y-4 start"
+            className="start grid justify-evenly gap-x-2 gap-y-4"
             style={{
               gridTemplateColumns: "repeat(auto-fill, 110px)",
               // gridTemplateColumns: "repeat(auto-fit, minmax(110px, 110px))",
