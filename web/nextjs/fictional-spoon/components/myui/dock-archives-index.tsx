@@ -66,10 +66,11 @@ const DockArchivesIndex = ({ fullShipList }: AzurApiIndexProps) => {
           }`}
         >
           <div className={`hidden lg:block ${isDevEnv && "bg-cyan-900"}`}>
+            {/* sticky top-24 -> ok if small, bad if filter panel becomes larger */}
             <SortFilterPanel
               fullShipList={fullShipList}
               updateShipList={setShipList}
-              className="sticky top-24"
+              className=""
             />
           </div>
 
