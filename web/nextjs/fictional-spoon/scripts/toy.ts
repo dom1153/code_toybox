@@ -160,13 +160,43 @@ function getFileSize(filename: string) {
       }
     })
 
-    writeFileSync(outputFile, JSON.stringify(newShips), "utf8")
-    const newSize = getFileSize(outputFile)
-    console.log(`wrote file file ${outputFile} (${newSize} MB)`)
+    // https://stackoverflow.com/questions/1960473/get-all-unique-values-in-a-javascript-array-remove-duplicates
+    const querySet = {
+      hullTypes: [
+        ...new Set(
+          ships.map((s) => {
+            return s.hullType
+          })
+        ),
+      ],
+      rarity: [
+        ...new Set(
+          ships.map((s) => {
+            return s.rarity
+          })
+        ),
+      ],
+    }
 
-    writeFileSync(outputFileDetails, JSON.stringify(newShipDetails), "utf8")
-    const newSizeDetails = getFileSize(outputFileDetails)
-    console.log(`wrote file file ${outputFileDetails} (${newSizeDetails} MB)`)
+    if (0) {
+      writeFileSync(outputFile, JSON.stringify(newShips), "utf8")
+      const newSize = getFileSize(outputFile)
+      console.log(`wrote file file ${outputFile} (${newSize} MB)`)
+    }
+
+    if (0) {
+      writeFileSync(outputFileDetails, JSON.stringify(newShipDetails), "utf8")
+      const newSize = getFileSize(outputFileDetails)
+      console.log(`wrote file file ${outputFileDetails} (${newSize} MB)`)
+    }
+
+    if (1) {
+      const outputFname = "./tmp/query.json"
+      // 2 will pretty-print
+      writeFileSync(outputFname, JSON.stringify(querySet, undefined, 2), "utf8")
+      const newSize = getFileSize(outputFname)
+      console.log(`wrote file file ${outputFname} (${newSize} MB)`)
+    }
   } else {
     console.log("skipping json trim")
   }

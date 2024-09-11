@@ -9,19 +9,19 @@ import { Card, CardContent } from "@/components/ui/card"
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
 interface ShipCardProps {
   ship: Ship
+  square?: boolean
 }
 
 interface AutoTextProps {
   text: string
 }
 
-const ShipCard: React.FC<ShipCardProps> = ({ ship }) => {
+const ShipCard: React.FC<ShipCardProps> = ({ ship, square }) => {
   // VVV optional; use truncation instead
   const AutoText: React.FC<AutoTextProps> = ({ text }) => {
     const { fontSize, ref } = useFitText()
@@ -59,13 +59,33 @@ const ShipCard: React.FC<ShipCardProps> = ({ ship }) => {
           {/* https://nextjs.org/docs/app/api-reference/components/image */}
           {/* <img src={ship.thumbnail} alt="Default" className="" /> */}
           {/* Vercel images are lazy by default! 🙌 */}
-          <Image
-            src={`/thumbs/webp/${ship.id}.webp`}
-            // src={`/thumbs/webpSQ/${ship.id}.webp`}
-            alt={ship.names.en}
-            width={192}
-            height={256}
-          />
+          {square ? (
+            <Image
+              src={`/thumbs/webpSQ/${ship.id}.webp`}
+              // src={`/thumbs/webpSQ/${ship.id}.webp`}
+              alt={ship.names.en}
+              width={192}
+              height={192}
+            />
+          ) : (
+            <Image
+              src={`/thumbs/webp/${ship.id}.webp`}
+              // src={`/thumbs/webpSQ/${ship.id}.webp`}
+              alt={ship.names.en}
+              width={192}
+              height={256}
+            />
+          )}
+          {isDevEnv && (
+            <>
+              <p className="text-xs top-0 left-0 absolute bg-background">
+                {ship.hullType}
+              </p>
+              <p className="text-xs bottom-0 right-0 absolute bg-background">
+                {ship.nationality}
+              </p>
+            </>
+          )}
           {false && (
             <div className="absolute bottom-3 left-0 w-full bg-zinc-950">
               <p className="text-center">{ship.names.en}</p>
@@ -80,26 +100,24 @@ const ShipCard: React.FC<ShipCardProps> = ({ ship }) => {
     return (
       <>
         <div key={ship.id} className="">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>{ShipCardJsx}</TooltipTrigger>
-              <TooltipContent className="font-mono">
-                <div className="">
-                  <p>id: {ship.id}</p>
-                  <p>hullType: {ship.hullType}</p>
-                  <p>nationality: {ship.nationality}</p>
-                  <p>rarity: {ship.rarity}</p>
-                  <p>class: {ship.class}</p>
-                  <p>retrofit: {ship.retrofit ? "yes" : "no"}</p>
-                  {/* <p>{ship.thumbnail}</p> */}
-                  <p>
-                    skins:{" "}
-                    {ship.skins.reduce((partialSum, i) => partialSum + 1, 0)}
-                  </p>
-                </div>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>{ShipCardJsx}</TooltipTrigger>
+            <TooltipContent className="font-mono">
+              <div className="">
+                <p>id: {ship.id}</p>
+                <p>hullType: {ship.hullType}</p>
+                <p>nationality: {ship.nationality}</p>
+                <p>rarity: {ship.rarity}</p>
+                <p>class: {ship.class}</p>
+                <p>retrofit: {ship.retrofit ? "yes" : "no"}</p>
+                {/* <p>{ship.thumbnail}</p> */}
+                <p>
+                  skins:{" "}
+                  {ship.skins.reduce((partialSum, i) => partialSum + 1, 0)}
+                </p>
+              </div>
+            </TooltipContent>
+          </Tooltip>
         </div>
       </>
     )

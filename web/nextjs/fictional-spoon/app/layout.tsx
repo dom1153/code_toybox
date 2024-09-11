@@ -8,6 +8,7 @@ import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
 import { isDevEnv, sortDefault } from "@/lib/myutils"
 import { cn } from "@/lib/utils"
+import { TooltipProvider } from "@/components/ui/tooltip"
 import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -60,11 +61,13 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         >
           <Toaster />
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="relative flex h-screen max-h-screen flex-col">
-              <SiteHeader fullShipList={sortDefault(data as any)} />
-              <div className="flex flex-1">{children}</div>
-            </div>
-            <TailwindIndicator />
+            <TooltipProvider delayDuration={0}>
+              <div className="relative flex h-screen max-h-screen flex-col">
+                <SiteHeader fullShipList={sortDefault(data as any)} />
+                <div className="flex flex-1">{children}</div>
+              </div>
+              <TailwindIndicator />
+            </TooltipProvider>
           </ThemeProvider>
         </body>
       </html>
