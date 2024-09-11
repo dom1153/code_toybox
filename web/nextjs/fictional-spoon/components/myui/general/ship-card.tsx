@@ -78,10 +78,10 @@ const ShipCard: React.FC<ShipCardProps> = ({ ship, square }) => {
           )}
           {isDevEnv && (
             <>
-              <p className="text-xs top-0 left-0 absolute bg-background">
+              <p className="absolute left-0 top-0 bg-background text-xs">
                 {ship.hullType}
               </p>
-              <p className="text-xs bottom-0 right-0 absolute bg-background">
+              <p className="absolute bottom-0 right-0 bg-background text-xs">
                 {ship.nationality}
               </p>
             </>
