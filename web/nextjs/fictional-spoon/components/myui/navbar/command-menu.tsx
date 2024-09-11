@@ -82,7 +82,7 @@ const CommandMenu: React.FC<CommandMenuProps> = ({ fullShipList }) => {
                 className="gap-2"
               >
                 <Image
-                  src={`/thumbs/webpSQ/${ship.id}.webp`}
+                  src={`/assets/thumbs/webpSQ/${ship.id}.webp`}
                   alt={ship.names.en}
                   width={24}
                   height={24}

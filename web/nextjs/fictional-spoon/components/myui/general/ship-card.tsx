@@ -61,7 +61,7 @@ const ShipCard: React.FC<ShipCardProps> = ({ ship, square }) => {
           {/* Vercel images are lazy by default! 🙌 */}
           {square ? (
             <Image
-              src={`/thumbs/webpSQ/${ship.id}.webp`}
+              src={`/assets/thumbs/webpSQ/${ship.id}.webp`}
               // src={`/thumbs/webpSQ/${ship.id}.webp`}
               alt={ship.names.en}
               width={192}
@@ -69,7 +69,7 @@ const ShipCard: React.FC<ShipCardProps> = ({ ship, square }) => {
             />
           ) : (
             <Image
-              src={`/thumbs/webp/${ship.id}.webp`}
+              src={`/assets/thumbs/webp/${ship.id}.webp`}
               // src={`/thumbs/webpSQ/${ship.id}.webp`}
               alt={ship.names.en}
               width={192}
