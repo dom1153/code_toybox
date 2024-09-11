@@ -59,7 +59,10 @@ const SortFilterBar: React.FC<FilterProps> = ({
         </SheetContent>
       </Sheet>
 
-      <SearchBoxFilter />
+      <SearchBoxFilter
+        fullShipList={fullShipList}
+        updateShipList={updateShipList}
+      />
     </Card>
   )
 }

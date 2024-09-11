@@ -1,6 +1,8 @@
-import { useState } from "react"
+import { useCallback, useState } from "react"
+import { Ship } from "@azurapi/azurapi/build/types/ship"
 import { ArrowDownAZ, Check, ChevronDown, CircleX, Search } from "lucide-react"
 
+import { isDevEnv, searchShipList } from "@/lib/myutils"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -23,13 +25,56 @@ import FilterData from "./FilterData.json"
 
 interface SearchBoxFilterProps {
   filterComboLeftAlign?: boolean
+  fullShipList: Ship[]
+  updateShipList: any
 }
+
+let searchDelayTimeout: any = undefined
+const searchDelay = isDevEnv ? 0 : 100
 
 const SearchBoxFilter: React.FC<SearchBoxFilterProps> = ({
   filterComboLeftAlign,
+  fullShipList,
+  updateShipList,
 }) => {
   const [openCombo, setOpenCombo] = useState(false)
   const [valueCombo, setValueCombo] = useState("")
+
+  const [searchText, setSearchText] = useState("")
+  const [searchWaiting, setSearchWaiting] = useState(false)
+
+  const textInputHandler = useCallback(
+    (e: any) => {
+      const txt = e.target.value
+
+      function getShipListByTextSearch(text: string) {
+        return searchShipList(fullShipList, text)
+      }
+
+      function doSearch() {
+        setSearchWaiting(false)
+        setSearchText(txt)
+        const filteredShipList = getShipListByTextSearch(txt)
+        updateShipList(filteredShipList)
+      }
+
+      // delay search wrapper code
+      function delaySearch() {
+        if (searchDelay > 0) {
+          setSearchWaiting(true)
+          if (searchDelayTimeout) {
+            clearTimeout(searchDelayTimeout)
+          }
+          searchDelayTimeout = setTimeout(doSearch, searchDelay)
+        } else {
+          doSearch()
+        }
+      }
+
+      delaySearch()
+    },
+    [fullShipList, updateShipList]
+  )
 
   const CustomComboBox = (
     <Popover open={openCombo} onOpenChange={setOpenCombo}>
@@ -97,6 +142,7 @@ const SearchBoxFilter: React.FC<SearchBoxFilterProps> = ({
           type="search"
           id="Search"
           placeholder="Search..."
+          onChange={textInputHandler}
         />
 
         <CircleX />

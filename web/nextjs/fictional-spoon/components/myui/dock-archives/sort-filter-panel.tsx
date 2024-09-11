@@ -1,9 +1,8 @@
-import { useCallback, useState } from "react"
 import { Ship } from "@azurapi/azurapi/build/types/ship"
 import { Label } from "@radix-ui/react-label"
 import { Info } from "lucide-react"
 
-import { isDevEnv, searchShipList } from "@/lib/myutils"
+import { isDevEnv } from "@/lib/myutils"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Toggle } from "@/components/ui/toggle"
@@ -47,9 +46,6 @@ let items: ItemType[] = [
   },
 ]
 
-let searchDelayTimeout: any = undefined
-const searchDelay = isDevEnv ? 0 : 100
-
 // TODO use context???
 export interface FilterProps {
   fullShipList: Ship[]
@@ -62,42 +58,6 @@ const SortFilterPanel: React.FC<FilterProps> = ({
   updateShipList,
   className,
 }) => {
-  const [searchText, setSearchText] = useState("")
-  const [searchWaiting, setSearchWaiting] = useState(false)
-
-  const textInputHandler = useCallback(
-    (e: any) => {
-      const txt = e.target.value
-
-      function getShipListByTextSearch(text: string) {
-        return searchShipList(fullShipList, text)
-      }
-
-      function doSearch() {
-        setSearchWaiting(false)
-        setSearchText(txt)
-        const filteredShipList = getShipListByTextSearch(txt)
-        updateShipList(filteredShipList)
-      }
-
-      // delay search wrapper code
-      function delaySearch() {
-        if (searchDelay > 0) {
-          setSearchWaiting(true)
-          if (searchDelayTimeout) {
-            clearTimeout(searchDelayTimeout)
-          }
-          searchDelayTimeout = setTimeout(doSearch, searchDelay)
-        } else {
-          doSearch()
-        }
-      }
-
-      delaySearch()
-    },
-    [fullShipList, updateShipList]
-  )
-
   const FilterButtons = (
     <>
       {[
@@ -141,11 +101,15 @@ const SortFilterPanel: React.FC<FilterProps> = ({
                   type="search"
                   id="Search"
                   placeholder="Search..."
-                  onChange={textInputHandler}
+                  onChange={() => {}}
                 />
               </div>
             )}
-            <SearchBoxFilter filterComboLeftAlign />
+            <SearchBoxFilter
+              filterComboLeftAlign
+              fullShipList={fullShipList}
+              updateShipList={updateShipList}
+            />
 
             {FilterButtons}
             {/* {FilterData.hull.options.map((i) => (
