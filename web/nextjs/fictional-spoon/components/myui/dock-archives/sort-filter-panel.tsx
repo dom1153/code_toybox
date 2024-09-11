@@ -108,7 +108,7 @@ const SortFilterPanel: React.FC<FilterProps> = ({
         FilterData.availability,
         FilterData.special,
       ].map((section) => (
-        <>
+        <div key={section.label}>
           <h1 className="mt-4 text-lg font-bold">{section.label}</h1>
           <div className="flex flex-row flex-wrap gap-1">
             {section.options.map((i) => (
@@ -121,12 +121,12 @@ const SortFilterPanel: React.FC<FilterProps> = ({
               </Toggle>
             ))}
           </div>
-        </>
+        </div>
       ))}
     </>
   )
 
-  // consider: overflow (single page app style; wayyyyy out of my league)
+  // conider: overflow (single page app style; wayyyyy out of my league)
   return (
     <>
       <Card className={`w-[400px] pt-4 ${className}`}>

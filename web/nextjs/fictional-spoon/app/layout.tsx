@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast"
 
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
-import { sortDefault } from "@/lib/myutils"
+import { isDevEnv, sortDefault } from "@/lib/myutils"
 import { cn } from "@/lib/utils"
 import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
@@ -42,7 +42,8 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   // theme provider does something similar, probably
   // https://blog.logrocket.com/guide-state-management-next-js/
   const data = await fetch(
-    "https://raw.githubusercontent.com/dom1153/code_toybox/main/web/nextjs/archive/ships-details.json"
+    "https://raw.githubusercontent.com/dom1153/code_toybox/main/web/nextjs/archive/ships-details.json",
+    { cache: isDevEnv ? "no-cache" : "default" }
   )
     .then((res) => res.json())
     .then((responseJson) => sortDefault(responseJson))

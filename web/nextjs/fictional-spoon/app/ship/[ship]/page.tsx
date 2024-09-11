@@ -3,6 +3,7 @@
 
 import Image from "next/image"
 
+import { isDevEnv } from "@/lib/myutils"
 import { getShipByUrl } from "@/lib/serverutils"
 import {
   Card,
@@ -16,7 +17,8 @@ import {
 export default async function Page({ params }: { params: { ship: string } }) {
   // yeah this is gonna be terrible for performance
   const data = await fetch(
-    "https://raw.githubusercontent.com/dom1153/code_toybox/main/web/nextjs/archive/ships-details.json"
+    "https://raw.githubusercontent.com/dom1153/code_toybox/main/web/nextjs/archive/ships-details.json",
+    { cache: isDevEnv ? "no-cache" : "default" }
   ).then((res) => res.json())
 
   const ship = getShipByUrl(data, params.ship)
