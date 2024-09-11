@@ -14,6 +14,7 @@ const nextConfig = {
         pathname: "/AzurAPI/azurapi-js-setup/master/**",
       },
     ],
+    unoptimized: true,
   },
 }
 
