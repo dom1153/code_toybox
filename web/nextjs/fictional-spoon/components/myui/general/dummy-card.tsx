@@ -2,14 +2,16 @@ import Image from "next/image"
 
 import { Card, CardContent } from "@/components/ui/card"
 
-interface DummyCardProps {}
+interface DummyCardProps {
+  idx?: number
+}
 
-const DummyCard: React.FC<DummyCardProps> = ({}) => {
+const DummyCard: React.FC<DummyCardProps> = ({ idx }) => {
   return (
     <div className="">
       <Card className="w-40">
         <div className="flex justify-center py-1">
-          <p>{`🅱️enterprise`}</p>
+          <p>{`🅱️enterprise ${idx || ""}`}</p>
         </div>
         <CardContent className="relative p-0">
           <Image

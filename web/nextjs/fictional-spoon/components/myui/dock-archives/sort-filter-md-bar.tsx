@@ -53,7 +53,7 @@ const SortFilterBar: React.FC<FilterProps> = ({
 
         <SheetContent
           side="left"
-          className="w-max-[600px] min-w-[450px] sm:w-[600px] sm:max-w-sm md:max-w-md"
+          className="w-max-[600px] min-w-[450px] sm:w-[600px] sm:max-w-sm md:max-w-md max-h-dvh overflow-y-auto"
         >
           {CustomDialogContent}
         </SheetContent>

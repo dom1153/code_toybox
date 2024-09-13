@@ -61,13 +61,13 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         >
           <Toaster />
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <TooltipProvider delayDuration={0}>
-              <div className="relative flex h-screen max-h-screen flex-col">
-                <SiteHeader fullShipList={sortDefault(data as any)} />
+            <div className="relative flex h-screen max-h-screen flex-col">
+              <SiteHeader fullShipList={sortDefault(data as any)} />
+              <TooltipProvider delayDuration={0}>
                 <div className="flex flex-1">{children}</div>
-              </div>
-              <TailwindIndicator />
-            </TooltipProvider>
+              </TooltipProvider>
+            </div>
+            <TailwindIndicator />
           </ThemeProvider>
         </body>
       </html>

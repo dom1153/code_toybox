@@ -3,6 +3,7 @@ import Link from "next/link"
 
 import { NavItem } from "@/types/nav"
 import { siteConfig } from "@/config/site"
+import { isDevEnv } from "@/lib/myutils"
 import { cn } from "@/lib/utils"
 import { Icons } from "@/components/icons"
 
@@ -19,9 +20,10 @@ export function MainNav({ items }: MainNavProps) {
       </Link>
       {items?.length ? (
         <nav className="flex gap-6">
-          {items?.map(
-            (item, index) =>
-              item.href && (
+          {items?.map((item, index) => {
+            if (!isDevEnv && item.dev) return null
+            else if (item.href)
+              return (
                 <Link
                   key={index}
                   href={item.href}
@@ -33,7 +35,7 @@ export function MainNav({ items }: MainNavProps) {
                   {item.title}
                 </Link>
               )
-          )}
+          })}
         </nav>
       ) : null}
     </div>
