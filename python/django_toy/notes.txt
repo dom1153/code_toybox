@@ -1,0 +1,16 @@
+https://docs.djangoproject.com/en/5.1/intro/tutorial01/
+
+python -m django --version
+
+# scaffold project
+(creates project 'mysite'; manage.py)
+django-admin startproject mysite
+
+./
+  manage.py
+  mysite/
+    __init__.py		### empty; tells that this is a pacakge
+    settings.py		### server preferences
+    urls.py		### ToC for routes
+    asgi.py		### for asgi deployment (async server gateway interface)
+    wsgi.py		### for wsgi deployment (web server ... ...)
