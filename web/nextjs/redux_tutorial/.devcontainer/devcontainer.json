@@ -1,0 +1,20 @@
+{
+	"name": "Node.js",
+	"image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
+  // echo alias sqll=\\'sqlite3\\' >> ~/.bash_aliases
+	"postCreateCommand": "npm install",
+	"portsAttributes": {
+		"3000": {
+			"label": "Port Forward for CLI",
+			"onAutoForward": "notify"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"bradlc.vscode-tailwindcss",
+				"esbenp.prettier-vscode"
+			]
+		}
+	}
+}
