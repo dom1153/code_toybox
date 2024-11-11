@@ -1,0 +1,5 @@
+go mod init go-cobra-tea
+go get github.com/spf13/cobra
+go get github.com/charmbracelet/bubbletea
+
+go run main.go

@@ -1,0 +1,16 @@
+# Binary
+go-cobra-tea
+
+# Go specific
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+
+# Nix specific
+result
+.direnv
