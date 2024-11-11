@@ -1,7 +1,6 @@
 {
 	"name": "Node.js",
 	"image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
-  // echo alias sqll=\\'sqlite3\\' >> ~/.bash_aliases
 	"postCreateCommand": "npm install",
 	"portsAttributes": {
 		"3000": {
