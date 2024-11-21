@@ -8,14 +8,14 @@ const NUM_ITEMS = 700
 export default async function IndexPage() {
   return (
     <>
-      <div className="flex flex-row w-full bg-blue-950 h-full max-h-full">
-        <div className="bg-green-900 flex-1 p-2">
+      <div className="flex size-full max-h-full flex-row bg-blue-950">
+        <div className="flex-1 bg-green-900 p-2">
           <p>A</p>
           <div className="bg-purple-900"></div>
         </div>
-        <ScrollArea className="bg-red-900 flex-1 h-[calc(100vh-4rem-1px)]">
+        <ScrollArea className="h-[calc(100vh-4rem-1px)] flex-1 bg-red-900">
           <p>B</p>
-          <div className="flex flex-row flex-wrap gap-2 justify-center">
+          <div className="flex flex-row flex-wrap justify-center gap-2">
             {Array.from(Array(NUM_ITEMS).keys()).map((index) => (
               <DummyCard key={`dummy-card-${index}`} idx={index} />
             ))}
