@@ -1,0 +1,10 @@
+# Ignore everything
+*
+
+# But not these
+!.gitignore
+!flake.nix
+!flake.lock
+
+# ... even if they are in subdirectories
+!*/
